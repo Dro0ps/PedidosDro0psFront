@@ -1,0 +1,79 @@
+/* @import '../../style/animations.css'; */
+.table {
+   width: 100%;
+   box-shadow: 0px 0px 4px #ddd;
+   border-radius: 8px;
+   border-collapse: collapse;
+}
+.table thead tr th,
+.table tbody tr td {
+   white-space: nowrap;
+   margin: 0;
+   border: none;
+   text-align: start;
+   padding: 0.5rem 1rem;
+}
+.table thead tr:first-child th:first-child {
+   border-top-left-radius: 8px;
+}
+.table thead tr:first-child th:last-child {
+   border-top-right-radius: 8px;
+}
+
+.table thead tr th {
+   padding: 0.5rem 1rem;
+}
+.table th {
+   background-color: #e1eaf0;
+   color: #1a1a1a;
+}
+.table tbody tr td {
+   animation: fadeIn 0.5s cubic-bezier(0.165, 0.2, 0.44, 1) forwards;
+}
+.table tbody tr:nth-child(even) td {
+   background-color: #fff;
+}
+.table tbody tr:nth-child(odd) td {
+   background-color: #f9f9f9;
+}
+.table tbody .priority td {
+   background-color: #e6f4f1 !important;
+}
+.table tbody .priority td:nth-child(5) {
+   color: red;
+}
+.table tbody tr:last-child td:first-child {
+   border-bottom-left-radius: 8px;
+}
+.table tbody tr:last-child td:last-child {
+   border-bottom-right-radius: 8px;
+}
+
+.actions p {
+   padding: 0.4rem;
+   color: #00355b;
+   cursor: pointer;
+}
+.actions p u {
+   margin-left: 0.4rem;
+}
+
+.table-footer {
+   width: 100%;
+   padding: 1rem 0;
+   background-color: transparent;
+   text-align: end;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+}
+
+.table-footer p {
+   margin: 0 0.5rem;
+   opacity: 0.5;
+   cursor: pointer;
+}
+
+.table-footer .active {
+   opacity: 1;
+}

@@ -1,0 +1,82 @@
+return (
+    <Fragment>
+<div>
+      <Button onClick={handleClickOpen}>Agregar Datos de Envio</Button>
+      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+        <DialogTitle>Rellene los Campos</DialogTitle>
+        <DialogContent>
+          {/* Inicio del recuadro */}
+
+
+      
+
+      {/* Inicio Select */}
+      <FormControl className={classes.margin}>
+        <InputLabel id="demo-customized-select-label" className="margin">Entrega por:</InputLabel>
+        <Select
+          labelId="demo-customized-select-label"
+          id="demo-customized-select"
+          value={tipo_despacho}
+          onChange={handleChange}
+          
+          input={<BootstrapInput />}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={"Retiro en tienda"}>Retiro en tienda</MenuItem>
+          <MenuItem value={"Starken"}>Starken</MenuItem>
+          <MenuItem value={"Transporte"}>Transporte</MenuItem>
+        </Select>
+      </FormControl>
+
+      {/* Inicio Personalizado */}
+      <FormControl className={classes.margin}>
+          <InputLabel htmlFor="demo-customized-textbox"
+          name="dir_entrega"
+          value={dir_entrega}
+          placeholder="Dirección de Entrega"
+          onChange={handleChange}
+          >Direccion de entrega:</InputLabel>
+          <BootstrapInput id="demo-customized-textbox" />
+          
+      </FormControl>
+      {/* Fin Personalizado */}
+
+
+      {/* Inicio Select */}
+
+      {/* <FormControl className={classes.margin}>
+        <InputLabel htmlFor="demo-customized-select-native">Age</InputLabel>
+        <NativeSelect
+          id="demo-customized-select-native"
+          value={age}
+          onChange={handleChange}
+          input={<BootstrapInput />}
+        >
+          <option aria-label="None" value="" />
+          <option value={10}>Ten</option>
+          <option value={20}>Twenty</option>
+          <option value={30}>Thirty</option>
+        </NativeSelect>
+      </FormControl> */}
+
+
+
+          {/* Fin del recuadro */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+    </Fragment>
+  );
+};
+
+export default FormTarea;
