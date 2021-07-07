@@ -23,6 +23,11 @@ const Barra = () => {
             {usuario ? <p className="nombre-usuario" >Hola <span>{usuario.nombre} </span> </p> : null}
 
             <nav className="nav-principal">
+            <Link to={'/pagos'} className="">
+                    Registro de Pagos
+                </Link>
+            </nav>
+            <nav className="nav-principal">
             <Link to={'/pedidos'} className="">
                     Registro de Pedidos
                 </Link>

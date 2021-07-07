@@ -8,11 +8,13 @@ import Loading from './components/auth/Loading';
 
 import PedidoState from './context/pedidos/pedidoState';
 import TareaState from './context/tareas/tareaState';
+import PagoState from './context/pagos/pagoState';
 import AlertaState from './context/alertas/alertaState';
 import AuthState from './context/autenticacion/authState';
 import tokenAuth from './config/token';
 import RutaPrivada from './components/rutas/RutaPrivada';
 import RegistroPedidos from './components/tablas/RegistroPedidos';
+import Pagos from './components/pagos/Pagos';
 
 
 // Revisar si tenemos un token
@@ -25,6 +27,7 @@ function App() {
   return (
     <PedidoState>
       <TareaState>
+        <PagoState>
         <AlertaState>
           <AuthState>
             <Router>
@@ -35,10 +38,12 @@ function App() {
                     <RutaPrivada exact path="/pedidos" component={Pedidos} />
                     <RutaPrivada exact path="/registros" component={RegistroPedidos} />
                     <RutaPrivada exact path="/edita" component={EditarPedido} />
+                    <RutaPrivada exact path="/pagos" component={Pagos} />
                 </Switch>
             </Router>
           </AuthState>
         </AlertaState>
+        </PagoState>
       </TareaState>
     </PedidoState>
   );
