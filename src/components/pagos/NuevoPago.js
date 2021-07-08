@@ -44,7 +44,7 @@ const NuevoPago = () => {
       medio_pago: '',
       banco: '',
       fecha_pago: '',
-      tipo_documento: '',
+      
   });
 
     // Extraer datos del pago
@@ -55,7 +55,6 @@ const NuevoPago = () => {
       medio_pago,
       banco,
       fecha_pago,
-      tipo_documento,
       
         } = pago;
 
@@ -72,7 +71,7 @@ const NuevoPago = () => {
         e.preventDefault();
 
         // Validar el pago
-        if( num_pedido_pago === '' || nombre_cliente === '' || monto_pedido === '' || medio_pago === '' || banco === '' || fecha_pago === '' || tipo_documento === '' )  {
+        if( num_pedido_pago === '' || nombre_cliente === '' || monto_pedido === '' || medio_pago === '' || banco === '' || fecha_pago === ''  )  {
             mostrarError();
             return;
         }
@@ -88,7 +87,7 @@ const NuevoPago = () => {
           medio_pago: '',
           banco: '',
           fecha_pago: '',
-          tipo_documento: '',
+          
         })
  
         handleClose();
@@ -125,12 +124,12 @@ const NuevoPago = () => {
                     />
                 </div>
 
-                <div class="form-group col-md-6 margin_personal">
-                <TituloP>Nombre del Cliente:</TituloP>
+                <div class="form-group col-md-4 margin_personal">
+                <TituloP>Rut del Depositante:</TituloP>
                 <input 
-                      type="text"
+                      type="number"
                       className="form-control"
-                      placeholder="Nombre Cliente"
+                      placeholder="Ingrese Rut sin puntos ni guíon"
                       name="nombre_cliente"
                       value={nombre_cliente}
                       onChange={onChangePago}
@@ -151,26 +150,34 @@ const NuevoPago = () => {
 
                 <div class="form-group col-md-6 margin_personal">
                 <TituloP>Medio de Pago:</TituloP>
-                <input 
-                      type="text"
-                      className="form-control"
-                      placeholder="medio de pago"
-                      name="medio_pago"
-                      value={medio_pago}
-                      onChange={onChangePago}
-                    />
+                    <select
+                        className="form-control"
+                        name="medio_pago"
+                        value={medio_pago}
+                        onChange={onChangePago}
+                    >
+                        <option value="">-- Seleccione --</option>
+                        <option value="Transferencia">Transferencia</option>
+                        <option value="Deposito">Deposito</option>
+                        <option value="Caja Vecina">Caja Vecina</option>
+                        <option value="Cheque">Cheque</option>
+                    </select>
                 </div>
 
                 <div class="form-group col-md-6 margin_personal">
                 <TituloP>Banco:</TituloP>
-                <input 
-                      type="text"
-                      className="form-control"
-                      placeholder="Banco"
-                      name="banco"
-                      value={banco}
-                      onChange={onChangePago}
-                    />
+                <select
+                    className="form-control"
+                    name="banco"
+                    value={banco}
+                    onChange={onChangePago}
+                >
+                    <option value="">-- Seleccione --</option>
+                    <option value="Santander">Santander</option>
+                    <option value="Bancoestado">Bancoestado</option>
+                    <option value="Otro">Otro</option>
+                    
+                </select>
                 </div>
 
                 </div>
@@ -186,18 +193,6 @@ const NuevoPago = () => {
                         className="form-control"
                         name="fecha_pago"
                         value={fecha_pago}
-                        onChange={onChangePago}
-                    />
-                </div>
-
-                <div class="form-group col-md-auto margin_personal">
-                    <TituloP>Tipo de Documento:</TituloP>
-                    <input 
-                        type="text"
-                        className="form-control"
-                        placeholder="Documento"
-                        name="tipo_documento"
-                        value={tipo_documento}
                         onChange={onChangePago}
                     />
                 </div>

@@ -59,7 +59,7 @@ const TablaPagos = () => {
       name: "Cliente",
       selector: "nombre_cliente",
       sortable: true,
-      grow: 4,
+      grow: 2,
     },
     {
       name: "Monto",
@@ -82,10 +82,34 @@ const TablaPagos = () => {
       sortable: true,
     },
     {
-      name: "Tipo de Documento",
-      selector: "tipo_documento",
+      name: 'Estado',
+      selector: 'confirma_pago',
+      cell: row => <div className="estado">{row.confirma_pago 
+          ?  
+              (
+                  <button
+                  className="completo"
+                  >CONFIRMADO</button>
+              )
+          : 
+              (
+                  <button 
+                  className=""
+                  >SIN CONFIRMAR</button>
+              )
+          }
+      
+      </div>,
+      sortable: true,
+      grow: 1
+      
+  },
+    {
+      name: "Confirmado Por",
+      selector: "confirmado_por",
       sortable: true,
     },
+    
   ];
 
   const pagOpciones = {
@@ -120,8 +144,8 @@ const TablaPagos = () => {
           item.monto_pedido.toLowerCase().includes(this.state.busqueda) ||
           item.medio_pago.toLowerCase().includes(this.state.busqueda) ||
           item.banco.toLowerCase().includes(this.state.busqueda) ||
-          item.fecha_pago.toLowerCase().includes(this.state.busqueda) ||
-          item.tipo_documento.toLowerCase().includes(this.state.busqueda) 
+          item.fecha_pago.toLowerCase().includes(this.state.busqueda)
+          
         ) {
           return item;
         }
@@ -161,7 +185,7 @@ const TablaPagos = () => {
               columns={columnas}
               /* data={pagos} */
               data={this.state.pagos}
-              title="Listado de Productos"
+              title="Listado de Pagos"
               pagination
               paginationComponentOptions={pagOpciones}
               fixedHeader
