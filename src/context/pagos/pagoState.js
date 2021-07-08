@@ -1,6 +1,7 @@
 import React, {useReducer} from 'react';
 import pagoContext from './pagoContext';
 import pagoReducer from './pagoReducer';
+import Swal from 'sweetalert2';
 
 import {  
     OBTENER_PAGOS,
@@ -13,6 +14,7 @@ import {
 } from '../../types'; 
 
 import usuarioAxios from '../../config/axios';
+
 
 const PagoState = props => {
 
@@ -45,6 +47,20 @@ const PagoState = props => {
         try {
             const resultado = await usuarioAxios.post('/api/pagos', pago);
             console.log(resultado);
+
+            // Lanzar una alerta
+            if(resultado.status === 200) {
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Agregado Correctamente',
+                    text: resultado.data.mensaje,
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                
+            }
             // Insertar el pago en el state
             dispatch({
                 type: AGREGAR_PAGO,
