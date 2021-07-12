@@ -52,7 +52,7 @@ const Pedido = ({pedido}) => {
 
         }
 
-        
+       
         
     }
     // Función que modifica el estado del pedido Embalado
@@ -60,7 +60,7 @@ const Pedido = ({pedido}) => {
 
         if(pedido.estado_pedido){
             Swal.fire('Los Estados una vez Confirmados no Pueden ser Editados')
-        } else {
+        } else if (pedido.confirma_pago) {
             Swal.fire({
                 title: '¿Estás seguro?',
                 text: "Quieres Cambiar el Estado de este Pedido a Embalado? Los Estados una vez Confirmados no Pueden ser Editados",
@@ -83,7 +83,11 @@ const Pedido = ({pedido}) => {
             }
         })
 
+        } else {
+            Swal.fire('El Pedido debe estar Confirmado para poder a Embalarlo')
         }
+
+           
         
     }
 
@@ -92,7 +96,7 @@ const Pedido = ({pedido}) => {
     const cambiarEstadoDespacho = pedido => {
         if(pedido.estado_despacho){
             Swal.fire('Los Estados una vez Confirmados no Pueden ser Editados')
-        } else {
+        } else if(pedido.estado_pedido) {
             Swal.fire({
                 title: '¿Estás seguro?',
                 text: "Quieres Cambiar el Estado a Despachado? Los Estados una vez Confirmados no Pueden ser Editados",
@@ -114,8 +118,11 @@ const Pedido = ({pedido}) => {
     
             }
         })
-
+        } else {
+            Swal.fire('El Pedido debe estar Embalado para poder a Despacharlo')
         }
+
+        
     }
 
 
@@ -145,10 +152,10 @@ const Pedido = ({pedido}) => {
 
         <div className=" row pad-up ">
         <div className="col-md-4">
-                <div className="disflex"><span className="t4 ">Confirmación de Pago:</span>
+                <div className="disflex"><span className="t4 ">Confirmación de Pedido:</span>
 
                 {/*//////////////// CONFIRMACIÓN ////////////////*/}
-                {  (usuario.tipo==='supervisor')
+                {  (usuario.tipo===('jefe'))
                     ?
                     <div className="estado">
                     {pedido.confirma_pago 
@@ -210,6 +217,8 @@ const Pedido = ({pedido}) => {
 
                 {/*//////////////// EMBALAJE ////////////////*/}
 
+                
+
                 {  (usuario.tipo==='bodega')
                     ?
                     <div className="estado">
@@ -219,6 +228,7 @@ const Pedido = ({pedido}) => {
                             <button
                                 type="button"
                                 className="completo"
+                                
                                 onClick={() => cambiarEstado(pedido)}
                             >EMBALADO</button>
                         )
@@ -268,7 +278,7 @@ const Pedido = ({pedido}) => {
                 {/* //////////////////// CAMBIAR ESTADO DESPACHO ////////////////// */}
 
 
-                {  (usuario.tipo === ('bodega' || 'supervisor'))
+                {  (usuario.tipo === ('jefe' || 'supervisor'))
 
                  ?
 

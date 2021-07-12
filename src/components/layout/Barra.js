@@ -22,19 +22,36 @@ const Barra = () => {
             
             {usuario ? <p className="nombre-usuario" ><span>{usuario.nombre} </span> </p> : null}
 
+
+            {usuario.tipo!==('bodega') ? 
+            
             <nav className="nav-principal">
             <Link to={'/pagos'} className="">
                     Registro de Pagos
                 </Link>
             </nav>
+            
+            
+            : null}
+
+            {usuario.tipo!==('bodega') ? 
+            
+            <nav className="nav-principal">
+            <Link to={'/edita'} className="">
+                    Editar Pedidos
+                </Link>
+            </nav>
+            
+            
+            : null}
+            
             <nav className="nav-principal">
             <Link to={'/pedidos'} className="">
                     Registro de Pedidos
                 </Link>
             </nav>
             
-            <nav className="nav-principal"><Link to={'/edita'} className="">Editar Pedidos</Link></nav>
-
+            
             <nav className="nav-principal">
                 <button 
                     className="btn btn-blank cerrar-sesion"

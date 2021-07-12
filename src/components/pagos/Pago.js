@@ -98,7 +98,7 @@ const Pago = ({pago}) => {
                 <div className="disflex"><span className="t4 ">Confirmación de Pago:</span>
 
                 {/*//////////////// CONFIRMACIÓN ////////////////*/}
-                {  (usuario.tipo==='supervisor')
+                {  (usuario.tipo ===('supervisor' || 'admin'))
                     ?
                     <div className="estado">
                     {pago.confirma_pago 

@@ -109,6 +109,8 @@ const NuevaCuenta = (props) => {
                         <option value="ventas">ventas</option>
                         <option value="bodega">bodega</option>
                         <option value="supervisor">supervisor</option>
+                        <option value="jefe">jefe</option>
+                        
 
 
                         </select>

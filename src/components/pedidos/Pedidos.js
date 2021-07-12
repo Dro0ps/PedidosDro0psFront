@@ -26,7 +26,7 @@ const Pedidos = () => {
            {/* <Imagen/> */}
            <h1 className="margen-top">HOMAR <span>Pedidos</span></h1>
 
-           {(usuario.tipo === 'ventas') ? 
+           {(usuario.tipo !== ('bodega')) ? 
                <NuevoPedido />
            : null }
            
