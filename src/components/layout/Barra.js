@@ -20,7 +20,7 @@ const Barra = () => {
         <Fragment>
        <header className="app-header">
             
-            {usuario ? <p className="nombre-usuario" >Hola <span>{usuario.nombre} </span> </p> : null}
+            {usuario ? <p className="nombre-usuario" ><span>{usuario.nombre} </span> </p> : null}
 
             <nav className="nav-principal">
             <Link to={'/pagos'} className="">

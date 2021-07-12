@@ -2,9 +2,7 @@ import React, { Fragment, useState, useContext } from 'react';
 import pedidoContext from '../../context/pedidos/pedidoContext';
 import styled from '@emotion/styled';
 import AuthContext from '../../context/autenticacion/authContext';
-import alertaContext from '../../context/alertas/alertaContext';
-import clienteAxios from '../../config/axios';
-import Swal from 'sweetalert2';
+
 
 
 // Material UI
@@ -141,8 +139,8 @@ const NuevoPedido = () => {
         // agregar al state
         agregarFormPedido();
         
-        const creador = usuario.nombre;
-        console.log(creador);
+        
+        
         // Reiniciar el form
         guardarPedido({
             num_pedido: '',
@@ -237,6 +235,7 @@ const NuevoPedido = () => {
                                     <option value="Deposito">Deposito</option>
                                     <option value="Caja Vecina">Caja Vecina</option>
                                     <option value="Efectivo">Efectivo</option>
+                                    <option value="Cheque">Cheque</option>
                                 </select>
                             </div>
 
