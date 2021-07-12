@@ -3,6 +3,7 @@ import pedidoContext from '../../context/pedidos/pedidoContext';
 import styled from '@emotion/styled';
 import AuthContext from '../../context/autenticacion/authContext';
 import alertaContext from '../../context/alertas/alertaContext';
+import clienteAxios from '../../config/axios';
 import Swal from 'sweetalert2';
 
 
@@ -88,9 +89,35 @@ const NuevoPedido = () => {
         banco,
         fecha_deposito,
         tipo_documento,
-        
-        
+
     } = pedido;
+
+    const [archivo, guardarArchivo] = useState('');
+
+    const agregarFormPedido = async (e) => {
+        // crear formData
+        const formData = new FormData();
+        formData.append("num_pedido", pedido.num_pedido);
+        formData.append("nombre_cliente", pedido.nombre_cliente);
+        formData.append("monto_pedido", pedido.monto_pedido);
+        formData.append("medio_pago", pedido.medio_pago);
+        formData.append("banco", pedido.banco);
+        formData.append("fecha_deposito", pedido.fecha_deposito);
+        formData.append("tipo_documento", pedido.tipo_documento);
+        formData.append("num_documento", pedido.num_documento);
+        formData.append("archivo", archivo);
+        // Almacenar en la base de Datos
+        try {
+            await agregarPedido(formData);
+          } catch (error) {
+          console.log(error);
+        }
+      };
+
+    // coloca la imagen en el state
+    const leerArchivo = e => {
+        guardarArchivo( e.target.files[0] );
+    }
 
     // Lee los contenidos del input
     const onChangePedido = e => {
@@ -106,13 +133,13 @@ const NuevoPedido = () => {
 
         // Validar el pedido
         if( num_pedido === '' || nombre_cliente === '' || monto_pedido === '' || medio_pago === '' || banco === ''
-         || fecha_deposito === '' || tipo_documento === ''  )  {
+         || fecha_deposito === '' || tipo_documento === '' || archivo === '' )  {
             mostrarError();
             return;
         }
 
         // agregar al state
-        agregarPedido(pedido)
+        agregarFormPedido();
         
         const creador = usuario.nombre;
         console.log(creador);
@@ -257,6 +284,17 @@ const NuevoPedido = () => {
                                     <option value="Factura">Factura</option>
                                     
                                 </select>
+                            </div>
+
+                            <div className="form-group col-md-8 margin_personal">
+                                <label>Archivo:</label>
+                                <input 
+                                type="file" 
+                                accept=".pdf" 
+                                className="form-control"
+                                name="archivo"
+                                onChange={leerArchivo}
+                            />
                             </div>
                             
 

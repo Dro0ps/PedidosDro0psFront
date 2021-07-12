@@ -329,6 +329,10 @@ const Pedido = ({pedido}) => {
 
                 }
 
+            <div>
+                <a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">VER PDF</button></a>
+            </div>
+
 
 
 

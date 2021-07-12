@@ -66,41 +66,38 @@ const PedidoState = props => {
     const agregarPedido = async pedido => {
 
         try {
-            const resultado = await clienteAxios.post('/api/pedidos', pedido);
-            console.log(resultado);
+            const resultado = await clienteAxios.post("/api/pedidos", pedido, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              });
+            
 
             // Lanzar una alerta
-            if(resultado.status === 200) {
-
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Agregado Correctamente',
-                    text: resultado.data.mensaje,
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                
-            }
-            
+          if (resultado.status === 200) {
+            Swal.fire("Agregado Correctamente", resultado.data.mensaje, "success");
+          } else {
+            // lanzar alerta
+            Swal.fire({
+              type: "error",
+              title: "Hubo un error",
+              text: "Vuelva a intentarlo",
+            });
+          }
             // Insertar el pedido en el state
             dispatch({
                 type: AGREGAR_PEDIDO,
                 payload: resultado.data
             })
         } catch (error) {
+            const alerta = {
+                msg: 'Hubo un error',
+                categoria: 'alerta-error'
+            }
             
-            
-            Swal.fire({
-                icon: 'error',
-                title: error.response.data.msg,
-                text: 'Verifique el numero de Pedido que intenta ingresar',
-                
-              })
-
             dispatch({
                 type: PEDIDO_ERROR,
-                /* payload: alerta */
+                payload: alerta
             })
         }
     }
