@@ -16,7 +16,7 @@ const VistaPedido = () => {
     const { tareaspedido } = tareasContext;
 
     // Si no hay pedido seleccionado
-    if (!pedido) return <h2>Selecciona un pedido</h2>;
+    if (!pedido) return <h1 className="margen-top">HOMAR <span>Pedidos</span></h1>;
 
     // Array destructuring para extraer el pedido actual
     const [pedidoActual] = pedido;
