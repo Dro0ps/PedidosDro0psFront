@@ -57,7 +57,7 @@ const TablaPagos = () => {
 
     {
       name: "Cliente",
-      selector: "nombre_cliente",
+      selector: "rut_depositante",
       sortable: true,
       grow: 2,
     },
@@ -136,7 +136,7 @@ const TablaPagos = () => {
       var search = pagos.filter((item) => {
         if (
           item.num_pedido_pago.toLowerCase().includes(this.state.busqueda) ||
-          item.nombre_cliente
+          item.rut_depositante
             .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")

@@ -39,7 +39,7 @@ const NuevoPago = () => {
     // State para pago
     const [pago, guardarPago] = useState({
       num_pedido_pago: '',
-      nombre_cliente: '',
+      rut_depositante: '',
       monto_pedido: '',
       medio_pago: '',
       banco: '',
@@ -50,7 +50,7 @@ const NuevoPago = () => {
     // Extraer datos del pago
     const {
       num_pedido_pago,
-      nombre_cliente,
+      rut_depositante,
       monto_pedido,
       medio_pago,
       banco,
@@ -71,10 +71,15 @@ const NuevoPago = () => {
         e.preventDefault();
 
         // Validar el pago
-        if( num_pedido_pago === '' || nombre_cliente === '' || monto_pedido === '' || medio_pago === '' || banco === '' || fecha_pago === ''  )  {
+        if( num_pedido_pago === '' || rut_depositante === '' || monto_pedido === '' || medio_pago === '' || banco === '' || fecha_pago === ''  )  {
             mostrarError();
             return;
         }
+
+        /* if(password.length < 6) {
+          mostrarAlerta('El password debe ser de al menos 6 caracteres', 'alerta-error');
+          return;
+      } */
 
         // agregar al state
         agregarPago(pago)
@@ -82,7 +87,7 @@ const NuevoPago = () => {
         // Reiniciar el form
         guardarPago({
           num_pedido_pago: '',
-          nombre_cliente: '',
+          rut_depositante: '',
           monto_pedido: '',
           medio_pago: '',
           banco: '',
@@ -130,8 +135,8 @@ const NuevoPago = () => {
                       type="number"
                       className="form-control"
                       placeholder="Ingrese Rut sin puntos ni guíon"
-                      name="nombre_cliente"
-                      value={nombre_cliente}
+                      name="rut_depositante"
+                      value={rut_depositante}
                       onChange={onChangePago}
                     />
                 </div>

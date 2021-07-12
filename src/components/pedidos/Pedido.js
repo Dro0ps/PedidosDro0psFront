@@ -135,6 +135,7 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">Banco:</span><span>{pedido.banco}</span></div>
                 <div className="disflex"><span className="t4">Fecha de deposito:</span><span>{pedido.fecha_deposito}</span></div>
                 <div className="disflex"><span className="t4">Tipo de documento:</span><span>{pedido.tipo_documento}</span></div>
+                <div><a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">Descargar PDF</button></a></div>
                 
  
             </div>
@@ -329,9 +330,7 @@ const Pedido = ({pedido}) => {
 
                 }
 
-            <div>
-                <a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">VER PDF</button></a>
-            </div>
+            
 
 
 

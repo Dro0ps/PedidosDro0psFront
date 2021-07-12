@@ -81,7 +81,7 @@ const Pago = ({pago}) => {
         <div className="row">
             <div className="col-md-4">
                 <div className="disflex "><h3>{pago.num_pedido_pago}</h3></div>
-                <div className="disflex"><span className="t4">Nombre del Cliente:</span><span>{pago.nombre_cliente}</span></div>
+                <div className="disflex"><span className="t4">Nombre del Cliente:</span><span>{pago.rut_depositante}</span></div>
                 <div className="disflex"><span className="t4">Monto:</span><span>{pago.monto_pedido}</span></div>
                 
                 
