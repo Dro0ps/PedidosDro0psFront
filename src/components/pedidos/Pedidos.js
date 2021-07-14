@@ -24,7 +24,7 @@ const Pedidos = () => {
            
            <Barra/>
            {/* <Imagen/> */}
-           <h1 className="margen-top">HOMAR <span>Pedidos</span></h1>
+           
 
            {(usuario.tipo !== ('bodega')) ? 
                <NuevoPedido />
