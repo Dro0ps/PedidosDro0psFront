@@ -31,10 +31,17 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-  }
+  },
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
   
   
 }));
+
+
 
 const NuevoPedido = () => {
 
@@ -162,180 +169,180 @@ const NuevoPedido = () => {
     }
 
     return ( 
-            <Fragment>
-                <Button onClick={handleClickOpen}>Registrar Nuevo Pedido</Button>
-      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle>Rellene los Campos</DialogTitle>
-        <DialogContent>
-            {/* Inicio del recuadro */}
-                
+        <Fragment>
+            <Button variant="contained" onClick={handleClickOpen}>Registrar Nuevo Pedido</Button>
+            <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+            <DialogTitle>Rellene los Campos</DialogTitle>
+                <DialogContent>
+        {/* Inicio del recuadro */}
             
-                        <form
-                            className="formulario-nuevo-pedido"
-                            onSubmit={onSubmitPedido}
-                        >
-                            
-                            {/**PRIMERA**/}
-                            <div className="form-row">
+        
+        <form
+            className="formulario-nuevo-pedido"
+            onSubmit={onSubmitPedido}
+        >
+            
+            {/**PRIMERA**/}
+            <div className="form-row">
 
-                            <div className="form-group col-md-auto margin_personal">
-                            <TituloP>Pedido:</TituloP>
-                            <input 
-                                    type="number"
-                                    className="form-control"
-                                    placeholder="# Pedido"
-                                    name="num_pedido"
-                                    value={num_pedido}
-                                    onChange={onChangePedido}
-                                />
-                            </div>
+            <div className="form-group col-md-auto margin_personal">
+            <TituloP>Pedido:</TituloP>
+            <input 
+                    type="number"
+                    className="form-control"
+                    placeholder="# Pedido"
+                    name="num_pedido"
+                    value={num_pedido}
+                    onChange={onChangePedido}
+                />
+            </div>
 
-                            <div className="form-group col-md-6 margin_personal">
-                            <TituloP>Cliente:</TituloP>
-                            <input 
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="cliente..."
-                                    name="nombre_cliente"
-                                    value={nombre_cliente}
-                                    onChange={onChangePedido}
-                                />
-                            </div>
+            <div className="form-group col-md-6 margin_personal">
+            <TituloP>Cliente:</TituloP>
+            <input 
+                    type="text"
+                    className="form-control"
+                    placeholder="cliente..."
+                    name="nombre_cliente"
+                    value={nombre_cliente}
+                    onChange={onChangePedido}
+                />
+            </div>
 
-                            
-                            
-                            </div>
+            
+            
+            </div>
 
-                {/**SEGUNDA**/}
-                <div className="form-row"> 
+            {/**SEGUNDA**/}
+            <div className="form-row"> 
 
+
+            <div className="form-group col-md-auto margin_personal">
+                <TituloP>Monto:</TituloP>
+                <input 
+                        type="number"
+                        className="form-control"
+                        placeholder="Monto $"
+                        name="monto_pedido"
+                        value={monto_pedido}
+                        onChange={onChangePedido}
+                    />
+                </div>
 
                 <div className="form-group col-md-auto margin_personal">
-                            <TituloP>Monto:</TituloP>
-                            <input 
-                                    type="number"
-                                    className="form-control"
-                                    placeholder="Monto $"
-                                    name="monto_pedido"
-                                    value={monto_pedido}
-                                    onChange={onChangePedido}
-                                />
-                            </div>
+                    <TituloP>Medio de Pago:</TituloP>
+                    <select
+                        className="form-control"
+                        name="medio_pago"
+                        value={medio_pago}
+                        onChange={onChangePedido}
+                    >
+                        <option value="">-- Seleccione --</option>
+                        <option value="Transferencia">Transferencia</option>
+                        <option value="Deposito">Deposito</option>
+                        <option value="Caja Vecina">Caja Vecina</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Cheque">Cheque</option>
+                    </select>
+                </div>
 
-                            <div className="form-group col-md-auto margin_personal">
-                                <TituloP>Medio de Pago:</TituloP>
-                                <select
-                                    className="form-control"
-                                    name="medio_pago"
-                                    value={medio_pago}
-                                    onChange={onChangePedido}
-                                >
-                                    <option value="">-- Seleccione --</option>
-                                    <option value="Transferencia">Transferencia</option>
-                                    <option value="Deposito">Deposito</option>
-                                    <option value="Caja Vecina">Caja Vecina</option>
-                                    <option value="Efectivo">Efectivo</option>
-                                    <option value="Cheque">Cheque</option>
-                                </select>
-                            </div>
+                <div className="form-group col-md-auto margin_personal">
+                    <TituloP>Banco:</TituloP>
+                    <select
+                        className="form-control"
+                        name="banco"
+                        value={banco}
+                        onChange={onChangePedido}
+                    >
+                        <option value="">-- Seleccione --</option>
+                        <option value="Santander">Santander</option>
+                        <option value="Bancoestado">Bancoestado</option>
+                        
+                    </select>
+                </div>
 
-                            <div className="form-group col-md-auto margin_personal">
-                                <TituloP>Banco:</TituloP>
-                                <select
-                                    className="form-control"
-                                    name="banco"
-                                    value={banco}
-                                    onChange={onChangePedido}
-                                >
-                                    <option value="">-- Seleccione --</option>
-                                    <option value="Santander">Santander</option>
-                                    <option value="Bancoestado">Bancoestado</option>
-                                    
-                                </select>
-                            </div>
-
-                            </div>
+                </div>
 
 
-                            {/**TERCERA**/}
-                            <div className="form-row">
+                {/**TERCERA**/}
+                <div className="form-row">
 
-                            <div className="form-group col-md-auto margin_personal">
-                            <TituloP>Fecha del Deposito:</TituloP>
-                            <input 
-                                    type="date"
-                                    className="form-control"
-                                    name="fecha_deposito"
-                                    value={fecha_deposito}
-                                    onChange={onChangePedido}
-                                />
-                            </div>
-                            <div className="form-group col-md-auto margin_personal">
-                                <TituloP>Tipo de documento:</TituloP>
-                                <select
-                                    className="form-control"
-                                    name="tipo_documento"
-                                    value={tipo_documento}
-                                    onChange={onChangePedido}
-                                >
-                                    <option value="">-- Seleccione --</option>
-                                    <option value="Boleta">Boleta</option>
-                                    <option value="Factura">Factura</option>
-                                    
-                                </select>
-                            </div>
+                <div className="form-group col-md-auto margin_personal">
+                <TituloP>Fecha del Deposito:</TituloP>
+                <input 
+                        type="date"
+                        className="form-control"
+                        name="fecha_deposito"
+                        value={fecha_deposito}
+                        onChange={onChangePedido}
+                    />
+                </div>
+                <div className="form-group col-md-auto margin_personal">
+                    <TituloP>Tipo de documento:</TituloP>
+                    <select
+                        className="form-control"
+                        name="tipo_documento"
+                        value={tipo_documento}
+                        onChange={onChangePedido}
+                    >
+                        <option value="">-- Seleccione --</option>
+                        <option value="Boleta">Boleta</option>
+                        <option value="Factura">Factura</option>
+                        
+                    </select>
+                </div>
 
-                            <div className="form-group col-md-8 margin_personal">
-                                <label>Archivo:</label>
-                                <input 
-                                type="file" 
-                                accept=".pdf" 
-                                className="form-control"
-                                name="archivo"
-                                onChange={leerArchivo}
-                            />
-                            </div>
-                            
-
-                            {/* <div className="form-group col-md-auto margin_personal">
-                                <TituloP>Estado:</TituloP>
-                                <select
-                                    className="form-control"
-                                    name="estado_pedido"
-                                    value={estado_pedido}
-                                    onChange={onChangePedido}
-                                >
-                                    <option value="estado_pedido">{estado_pedido}</option>
-                                    <option value="Completo">Completo</option>
-                                    <option value="Pendiente">Pendiente</option>
-                                    
-                                </select>
-                            </div> */}
-                            </div>
-                            <input 
-                                type="submit"
-                                className="btn  btn-block"
-                                value="Agregar Pedido"
-                            />
-
-                        </form>
+                <div className="form-group col-md-8 margin_personal">
+                    <label>Archivo:</label>
+                    <input 
+                    type="file" 
+                    accept=".pdf" 
+                    className="form-control"
+                    name="archivo"
+                    onChange={leerArchivo}
+                />
+                </div>
                 
 
-            { errorformulario ? <p className="mensaje error">Todos los campos son Obligatorios</p>  : null }
+                {/* <div className="form-group col-md-auto margin_personal">
+                    <TituloP>Estado:</TituloP>
+                    <select
+                        className="form-control"
+                        name="estado_pedido"
+                        value={estado_pedido}
+                        onChange={onChangePedido}
+                    >
+                        <option value="estado_pedido">{estado_pedido}</option>
+                        <option value="Completo">Completo</option>
+                        <option value="Pendiente">Pendiente</option>
+                        
+                    </select>
+                </div> */}
+                </div>
+                <input 
+                    type="submit"
+                    className="btn  btn-block"
+                    value="Agregar Pedido"
+                />
+
+            </form>
             
 
-             {/* Fin del recuadro */}
+        { errorformulario ? <p className="mensaje error">Todos los campos son Obligatorios</p>  : null }
+        
+
+            {/* Fin del recuadro */}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Salir
-          </Button>
-          
+        <Button className="btn-block" onClick={handleClose} color="primary">
+        Salir
+        </Button>
+        
         </DialogActions>
-      </Dialog>
-    
-        </Fragment>
-     );
+        </Dialog>
+
+    </Fragment>
+    );
 }
  
 export default NuevoPedido;

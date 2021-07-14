@@ -1,7 +1,7 @@
 :root {
   --blanco: #ffffff;
   --gris1: #edf2f6;
-  --gris2: #1f263d;
+  --gris2: #3f51b5;
   --gris3: #b4a5a3;
   --negro: #a53e3e;
   --headingFont:'Raleway', sans-serif;
@@ -121,7 +121,7 @@ aside  {
 }
 
 .formulario-nuevo-pedido {
-  margin-top: 6rem;
+  margin-top: 0.5rem;
 }
 .formulario-nuevo-pedido .input-text {
   border-bottom: 1px solid var(--gris2);
@@ -299,7 +299,7 @@ aside  {
 }
 
 .form-usuario {
-    background-color: var(--gris2);
+    background-color: var(--gris1);
     height: 100vh;
     min-height: 800px;
     display: flex;

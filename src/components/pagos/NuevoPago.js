@@ -113,7 +113,7 @@ const NuevoPago = () => {
     return ( 
 
     <Fragment>
-    <Button onClick={handleClickOpen}>Registrar Nuevo Pago</Button>
+    <Button variant="contained" onClick={handleClickOpen}>Registrar Nuevo Pago</Button>
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle><h4>Rellene los Campos</h4></DialogTitle>
         <DialogContent>

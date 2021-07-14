@@ -20,7 +20,7 @@ const Pagos = () => {
 
     <Fragment>
         <Barra/>
-        <h1 className="margen-top"><span>Registro de Pagos</span></h1>
+        
         <NuevoPago/>
         <TablaPagos/>
     </Fragment>

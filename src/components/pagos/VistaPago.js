@@ -16,7 +16,7 @@ const VistaPago = () => {
     const { tareaspago } = tareasContext;
 
     // Si no hay pago seleccionado
-    if (!pago) return <h2>Selecciona un pago</h2>;
+    if (!pago) return <h1 className="margen-top">HOMAR <span>Pagos</span></h1>;
 
     // Array destructuring para extraer el pago actual
     const [pagoActual] = pago;
