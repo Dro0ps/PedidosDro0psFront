@@ -153,7 +153,7 @@ const RegistroPedidos  = () => {
             
             </div>,
             sortable: true,
-            grow: 0.6
+            grow: 0.7
             
         },
 
@@ -179,7 +179,7 @@ const RegistroPedidos  = () => {
             }
             </div>,
             sortable: true,
-            grow: 0.6
+            grow: 0.7
             
         },
        

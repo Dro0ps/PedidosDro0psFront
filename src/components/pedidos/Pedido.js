@@ -152,10 +152,10 @@ const Pedido = ({pedido}) => {
 
         <div className=" row pad-up ">
         <div className="col-md-4">
-                <div className="disflex"><span className="t4 ">Confirmación de Pedido:</span>
+                <div className="disflex"><span className="t4 ">Confirmación de Pago:</span>
 
                 {/*//////////////// CONFIRMACIÓN ////////////////*/}
-                {  (usuario.tipo===('jefe'))
+                {  (usuario.tipo===('supervisor'))
                     ?
                     <div className="estado">
                     {pedido.confirma_pago 
