@@ -4,7 +4,7 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import tareaContext from '../../context/tareas/tareaContext';
 import DataTable from 'react-data-table-component';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faThumbsUp, faFileInvoice, faHourglassHalf, faTruck } from "@fortawesome/free-solid-svg-icons";
 
 import Pedido from '../pedidos/Pedido';
 
@@ -57,7 +57,7 @@ const RegistroPedidos  = () => {
         },
 
         {
-            name: 'Numero de Pedido',
+            name: '# Pedido',
             selector: 'num_pedido',
             sortable: true,
             /** Boton para llamar el Pedido **/
@@ -69,120 +69,125 @@ const RegistroPedidos  = () => {
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
+            grow: 0
 
         },
         {
             name: 'Nombre del Cliente',
             selector: 'nombre_cliente',
             sortable: true,
-            grow: 2.2
+            grow: 1
             
         },
         {
             name: 'Monto del Pedido',
             selector: 'monto_pedido',
             sortable: true,
-            
+            grow: 0
         },
         {
             name: 'Medio de Pago',
             selector: 'medio_pago',
             sortable: true,
-            
+            grow: 0
         },
         {
             name: 'Banco',
             selector: 'banco',
             sortable: true,
-            
+            grow: 0
         },
         {
             name: 'Fecha de Deposito',
             selector: 'fecha_deposito',
             sortable: true,
-            
+            grow: 0
         },
         
         {
             name: 'Tipo de Documento',
             selector: 'tipo_documento',
             sortable: true,
-            
+            grow: 0
         },
         {
             name: 'N° Identificador',
             selector: 'num_transaccion',
             sortable: true,
+            grow: 0.5
             
         },
         {
             name: 'N° Documento',
             selector: 'num_documento',
             sortable: true,
-            
+            grow: 0
         },
         {
             name: 'Fecha de Entrega',
             selector: 'fecha_entrega',
             sortable: true,
-            
+            grow: 0
         },
         {
             name: 'Lugar de Entrega',
             selector: 'lugar_entrega',
             sortable: true,
-            
+            grow: 0
         },
         {
-            name: 'Confirmación',
+            name: 'PAGO',
             selector: 'confirma_pago',
             cell: row => <div className="estado">{row.confirma_pago 
                 ?  
                     (
                         <button
-                        className="completo"
-                        >CONFIRMADO</button>
+                        className="iconoCompleto"
+                        ><FontAwesomeIcon icon={faThumbsUp} /></button>
+                        
                     )
                 : 
                     (
                         <button 
-                        className=""
-                        >SIN CONFIRMAR</button>
+                        className="iconoIncompleto"
+                        ><FontAwesomeIcon icon={faHourglassHalf} /></button>
                     )
                 }
             
             </div>,
             sortable: true,
-            grow: 0.9
+            grow: 0
+            
             
         },
        
         {
-            name: 'Facturación',
+            name: 'FACTURA',
             selector: 'estado_pedido',
             cell: row => <div className="estado">{row.estado_pedido 
                 ?  
                     (
                         <button
-                        className="completo"
-                        >FACTURADO</button>
+                        className="iconoCompleto"
+                        ><FontAwesomeIcon icon={faFileInvoice} /></button>
                     )
                 : 
                     (
                         <button 
-                        className=""
-                        >SIN FACTURAR</button>
+                        className="iconoIncompleto"
+                        ><FontAwesomeIcon icon={faHourglassHalf} /></button>
                     )
                 }
             
             </div>,
             sortable: true,
-            grow: 1
+            grow: 0
+            
             
         },
 
         {
-            name: 'Entrega',
+            name: 'ENTREGA',
             selector: 'estado_pedido',
             cell: row =>  <div className="estado">
             {row.estado_despacho 
@@ -190,20 +195,21 @@ const RegistroPedidos  = () => {
                 (
                     <button
                         type="button"
-                        className="completo"
-                    >ENTREGADO</button>
+                        className="iconoCompleto"
+                    ><FontAwesomeIcon icon={faTruck} /></button>
                 )
             : 
                 (
                     <button
                         type="button"
-                        className="incompleto"
-                    >PENDIENTE POR ENTREGAR</button>
+                        className="iconoIncompleto"
+                    ><FontAwesomeIcon icon={faHourglassHalf} /></button>
                 )
             }
             </div>,
             sortable: true,
-            grow: 1
+            grow: 0
+        
             
         },
        
@@ -281,7 +287,7 @@ const RegistroPedidos  = () => {
                     </div>
                 
                     {/* MUESTRA TABLA */}
-                    <div className= "table-responsive" >
+                    <div className= "table table-bordered" >
                         <DataTable
                             columns={columnas}
                             /* data={pedidos} */

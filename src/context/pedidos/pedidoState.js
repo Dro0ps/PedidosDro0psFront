@@ -89,15 +89,22 @@ const PedidoState = props => {
                 payload: resultado.data
             })
         } catch (error) {
-            const alerta = {
-                msg: 'Hubo un error',
+            /* const alerta = {
+                msg: 'El numero de pedido ya existe',
                 categoria: 'alerta-error'
             }
             
             dispatch({
                 type: PEDIDO_ERROR,
                 payload: alerta
-            })
+            }) */
+
+            // lanzar alerta
+            Swal.fire({
+                type: "error",
+                title: "FAVOR VERIFIQUE",
+                text: "EL NUMERO DE PEDIDO INGRESADO YA EXISTE",
+              });
         }
     }
 
