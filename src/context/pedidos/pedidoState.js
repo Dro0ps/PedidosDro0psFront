@@ -66,13 +66,12 @@ const PedidoState = props => {
     const agregarPedido = async pedido => {
 
         try {
-            const resultado = await clienteAxios.post("/api/pedidos", pedido, {
+            const resultado = await clienteAxios.post('/api/pedidos', pedido, {
                 headers: {
                   "Content-Type": "multipart/form-data",
                 },
               });
             
-
             // Lanzar una alerta
           if (resultado.status === 200) {
             Swal.fire("Agregado Correctamente", resultado.data.mensaje, "success");

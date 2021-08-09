@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import AuthContext from '../../context/autenticacion/authContext';
 import pedidoContext from '../../context/pedidos/pedidoContext';
 import FormTarea from '../tareas/FormTarea';
+import moment from 'moment';
 
 
 
@@ -18,12 +19,119 @@ const Pedido = ({pedido}) => {
     const authContext = useContext(AuthContext);
     const { usuario } = authContext;
 
+
+    /////////// FUNCIONES /////////////
+
+    
+    // ASIGNACÓN DE FECHA AUTOMATICO
+    moment.locale();
+    let fechaConfirmación = moment().format('LLL');
+    
+    const obtenerNumeroConfirmacion = async () => {
+                        
+        const { value: text } = await  Swal.fire({
+            input: 'text',
+            inputLabel: 'NUMERO DE CONFIRMACIÓN',
+            inputPlaceholder: 'Ingrese el Rut de la Transferencia',
+            inputAttributes: {
+              'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+          })
+          
+          if (text) {
+            Swal.fire(`El pago se ha guardado con el identificador ${text}`)
+            pedido.confirma_pago = true;
+            pedido.num_transaccion = text;
+            pedido.confirmado_por= usuario.nombre;
+            pedido.fecha_confirmacion= fechaConfirmación;
+
+            actualizarPedido(pedido);
+          } 
+
+    }
+
+    const obtenerDocumento = async () => {
+                        
+        const { value: text } = await  Swal.fire({
+            input: 'text',
+            inputLabel: '# de Factura / Boleta',
+            inputPlaceholder: 'Ingrese el Numero del Documento de Venta',
+            inputAttributes: {
+              'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+          })
+          
+          if (text) {
+            Swal.fire(`El numero de Documento ingresado es el ${text}`)
+            pedido.estado_pedido = true;
+            pedido.num_documento = text;
+
+            actualizarPedido(pedido);
+          } 
+
+    }
+
+    const obtenerFechaEntrega = async () => {
+
+        const inputOptions = new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({
+                'Bascuñan': 'Bascuñan',
+                'Transporte': 'Transporte',
+                'Salvador': 'Salvador'
+              })
+            }, 1000)
+          })
+          const { value: tipo_entrega } = await Swal.fire({
+            title: 'Seleccione el tipo de entrega',
+            input: 'radio',
+            inputOptions: inputOptions,
+            inputValidator: (value) => {
+              if (!value) {
+                return 'Es Necesario Seleccionar una Opción'
+              }
+
+              
+            }
+          })
+          
+          if (tipo_entrega) {
+            Swal.fire({ html: `Tipo de entrega: ${tipo_entrega}` })
+
+            const { value: text } = await  Swal.fire({
+                input: 'text',
+                inputLabel: 'Ingrese la Fecha de Entrega',
+                inputPlaceholder: 'Dia/Mes/Año',
+                inputAttributes: {
+                  'aria-label': 'Type your message here'
+                },
+                showCancelButton: true
+              })
+              
+              if (text) {
+                Swal.fire(`Se Entrego en ${tipo_entrega} el Dia ${text}`)
+                pedido.estado_despacho = true;
+                pedido.fecha_entrega = text;
+                pedido.lugar_entrega = tipo_entrega;
+                
     
 
+    
+                actualizarPedido(pedido);
+                
+              } 
+            
+          }
+                        
+        
+
+    }
 
     
     // Función que modifica el estado del pedido Embalado
-    const cambiarEstadoConfirmado = pedido => {
+    const cambiarEstadoConfirmado =  pedido => {
 
         if(pedido.confirma_pago){
             Swal.fire('Los Estados una vez Confirmados no Pueden ser Editados')
@@ -38,15 +146,21 @@ const Pedido = ({pedido}) => {
                 confirmButtonText: 'Si, Comfirmar',
                 cancelButtonText : 'No, Cancelar'
             }).then((result) => { 
+
+                
                 
                 if(result.value) {
-                    if(!pedido.confirma_pago) {
+
+                    obtenerNumeroConfirmacion();
+
+                   
+
+                     /*  if(!pedido.confirma_pago) {
                         pedido.confirma_pago = true;
-                    }/*  else {
-                        pedido.confirma_pago = true
-                    } */
-                    actualizarPedido(pedido);
-    
+                      }
+                    actualizarPedido(pedido); */
+
+                   
             }
         })
 
@@ -63,7 +177,7 @@ const Pedido = ({pedido}) => {
         } else if (pedido.confirma_pago) {
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "Quieres Cambiar el Estado de este Pedido a Embalado? Los Estados una vez Confirmados no Pueden ser Editados",
+                text: "Quieres Cambiar el Estado de este Pedido a Facturado? Una vez confirmada la factura no puede ser Editada",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -71,20 +185,18 @@ const Pedido = ({pedido}) => {
                 confirmButtonText: 'Si, Comfirmar',
                 cancelButtonText : 'No, Cancelar'
             }).then((result) => { 
+
+                
                 
                 if(result.value) {
-                    if(!pedido.estado_pedido) {
-                        pedido.estado_pedido = true;
-                    }/*  else {
-                        pedido.estado_pedido = true
-                    } */
-                    actualizarPedido(pedido);
+
+                    obtenerDocumento();
     
             }
         })
 
         } else {
-            Swal.fire('El Pedido debe estar Confirmado para poder a Embalarlo')
+            Swal.fire('El Pedido debe estar Confirmado para poder a Facturarlo')
         }
 
            
@@ -109,39 +221,43 @@ const Pedido = ({pedido}) => {
             }).then((result) => { 
                 
                 if(result.value) {
-                    if(!pedido.estado_despacho) {
-                        pedido.estado_despacho = true;
-                    }/*  else {
-                        pedido.estado_despacho = true
-                    } */
-                    actualizarPedido(pedido);
+                    obtenerFechaEntrega();
     
             }
         })
         } else {
-            Swal.fire('El Pedido debe estar Embalado para poder a Despacharlo')
+            Swal.fire('El Pedido debe estar Facturado para poder a Despacharlo')
         }
 
         
     }
 
 
+
+
     return (  
         <Fragment>
         <div className="row">
             <div className="col-md-6">
-                <div className="disflex "><h3>Numero de pedido:</h3><span>{pedido.num_pedido}</span></div>
-                <div className="disflex"><span className="t4">Nombre del cliente:</span><span>{pedido.nombre_cliente}</span></div>
-                <div className="disflex"><span className="t4">Monto del pedido:</span><span>{pedido.monto_pedido}</span></div>
-                <div className="disflex"><span className="t4">Medio de pago:</span><span>{pedido.medio_pago}</span></div>
+                {/* <div className="disflex "><h3>Numero de pedido:</h3><span>{pedido.num_pedido}</span></div> */}
+                <div className="disflex"><span className="t4">Nombre del Cliente:</span><span>{pedido.nombre_cliente}</span></div>
+                <div className="disflex"><span className="t4">Monto del Pedido:</span><span>{pedido.monto_pedido}</span></div>
+                <div className="disflex"><span className="t4">Medio de Pago:</span><span>{pedido.medio_pago}</span></div>
+                <div className="disflex"><span className="t4">Banco:</span><span>{pedido.banco}</span></div>
+                <div className="disflex"><span className="t4">Fecha de Deposito:</span><span>{pedido.fecha_deposito}</span></div>
+                <div className="disflex"><span className="t4">Tipo de Documento:</span><span>{pedido.tipo_documento}</span></div>
 
                 
                 
             </div>
             <div className="col-md-6">
-                <div className="disflex"><span className="t4">Banco:</span><span>{pedido.banco}</span></div>
-                <div className="disflex"><span className="t4">Fecha de deposito:</span><span>{pedido.fecha_deposito}</span></div>
-                <div className="disflex"><span className="t4">Tipo de documento:</span><span>{pedido.tipo_documento}</span></div>
+                
+                <div className="disflex"><span className="t4">N° de Documento:</span><span>{pedido.num_documento}</span></div>
+                <div className="disflex"><span className="t4">Confirmado Por:</span><span>{pedido.confirmado_por}</span></div>
+                <div className="disflex"><span className="t4">Fecha de Confirmación:</span><span>{pedido.fecha_confirmacion}</span></div>
+                <div className="disflex"><span className="t4">Numero de Transacción:</span><span>{pedido.num_transaccion}</span></div>
+                <div className="disflex"><span className="t4">Entregado Por:</span><span>{pedido.lugar_entrega}</span></div>
+                <div className="disflex"><span className="t4">Fecha de Entrega:</span><span>{pedido.fecha_entrega}</span></div>
                 <div><a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">Descargar PDF</button></a></div>
                 
  
@@ -212,14 +328,14 @@ const Pedido = ({pedido}) => {
             </div>
 
             <div className="col-md-4">
-                <div className="disflex"><span className="t4">Estado de Embalaje:</span>
+                <div className="disflex"><span className="t4">Estado del pedido:</span>
                     
 
-                {/*//////////////// EMBALAJE ////////////////*/}
+                {/*//////////////// FACTURADO ////////////////*/}
 
                 
 
-                {  (usuario.tipo==='bodega')
+                {  (usuario.tipo==='ventas')
                     ?
                     <div className="estado">
                     {pedido.estado_pedido 
@@ -230,7 +346,7 @@ const Pedido = ({pedido}) => {
                                 className="completo"
                                 
                                 onClick={() => cambiarEstado(pedido)}
-                            >EMBALADO</button>
+                            >FACTURADO</button>
                         )
                     : 
                         (
@@ -238,7 +354,7 @@ const Pedido = ({pedido}) => {
                                 type="button"
                                 className="incompleto"
                                 onClick={() => cambiarEstado(pedido)}
-                            >SIN EMBALAR</button>
+                            >SIN FACTURAR</button>
                         )
                     }
                     </div>
@@ -254,7 +370,7 @@ const Pedido = ({pedido}) => {
                                 type="button"
                                 className="completo"
                                 /* onClick={() => cambiarEstado(pedido)} */
-                            >EMBALADO</button>
+                            >FACTURADO</button>
                         )
                     : 
                         (
@@ -262,7 +378,7 @@ const Pedido = ({pedido}) => {
                                 type="button"
                                 className="incompleto"
                                 /* onClick={() => cambiarEstado(pedido)} */
-                            >SIN EMBALAR</button>
+                            >SIN FACTURAR</button>
                         )
                     }
                     </div>
@@ -278,7 +394,7 @@ const Pedido = ({pedido}) => {
                 {/* //////////////////// CAMBIAR ESTADO DESPACHO ////////////////// */}
 
 
-                {  (usuario.tipo === ('jefe' || 'supervisor'))
+                {  (usuario.tipo === 'ventas')
 
                  ?
 

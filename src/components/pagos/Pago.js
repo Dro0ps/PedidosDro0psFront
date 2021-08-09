@@ -33,10 +33,6 @@ const Pago = ({pago}) => {
     }
 
 
-
-
-
-
     // Función que modifica el estado del pago 
     const cambiarEstadoConfirmado = pago => {
 

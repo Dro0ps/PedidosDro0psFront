@@ -84,6 +84,13 @@ const NuevoPedido = () => {
         banco: '',
         fecha_deposito: '',
         tipo_documento: '',
+        num_documento: 'vacio',
+        num_transaccion: 'vacio',
+        lugar_entrega: 'vacio',
+        fecha_entrega: 'vacio',
+
+
+
     });
 
     // Extraer datos de pedido
@@ -94,6 +101,7 @@ const NuevoPedido = () => {
         banco,
         fecha_deposito,
         tipo_documento,
+        
 
     } = pedido;
 
@@ -110,7 +118,11 @@ const NuevoPedido = () => {
         formData.append("fecha_deposito", pedido.fecha_deposito);
         formData.append("tipo_documento", pedido.tipo_documento);
         formData.append("num_documento", pedido.num_documento);
-        formData.append("archivo", archivo);
+        formData.append("num_transaccion", pedido.num_transaccion);
+        formData.append("lugar_entrega", pedido.lugar_entrega);
+        formData.append("fecha_entrega", pedido.fecha_entrega);
+        formData.append("archivo", archivo); 
+        
         // Almacenar en la base de Datos
         try {
             await agregarPedido(formData);
@@ -138,7 +150,7 @@ const NuevoPedido = () => {
 
         // Validar el pedido
         if( num_pedido === '' || nombre_cliente === '' || monto_pedido === '' || medio_pago === '' || banco === ''
-         || fecha_deposito === '' || tipo_documento === '' || archivo === '' )  {
+         || fecha_deposito === '' || tipo_documento === '' || archivo === ''  )  {
             mostrarError();
             return;
         }
@@ -146,6 +158,8 @@ const NuevoPedido = () => {
         // agregar al state
         agregarFormPedido();
         
+
+        /* agregarPedido(pedido); */
         
         
         // Reiniciar el form
@@ -157,6 +171,10 @@ const NuevoPedido = () => {
             banco: '',
             fecha_deposito: '',
             tipo_documento: '', 
+            num_documento: '',
+            num_transaccion: '',
+            lugar_entrega: '',
+            fecha_entrega: '',
             
         })
 
@@ -173,7 +191,7 @@ const NuevoPedido = () => {
             <Button variant="contained" onClick={handleClickOpen}>Registrar Nuevo Pedido</Button>
             <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
             <DialogTitle>Rellene los Campos</DialogTitle>
-                <DialogContent>
+            <DialogContent>
         {/* Inicio del recuadro */}
             
         

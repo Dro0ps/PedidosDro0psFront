@@ -102,13 +102,37 @@ const RegistroPedidos  = () => {
             sortable: true,
             
         },
+        
         {
             name: 'Tipo de Documento',
             selector: 'tipo_documento',
             sortable: true,
             
         },
-
+        {
+            name: 'N° Identificador',
+            selector: 'num_transaccion',
+            sortable: true,
+            
+        },
+        {
+            name: 'N° Documento',
+            selector: 'num_documento',
+            sortable: true,
+            
+        },
+        {
+            name: 'Fecha de Entrega',
+            selector: 'fecha_entrega',
+            sortable: true,
+            
+        },
+        {
+            name: 'Lugar de Entrega',
+            selector: 'lugar_entrega',
+            sortable: true,
+            
+        },
         {
             name: 'Confirmación',
             selector: 'confirma_pago',
@@ -129,31 +153,31 @@ const RegistroPedidos  = () => {
             
             </div>,
             sortable: true,
-            grow: 0.7
+            grow: 0.9
             
         },
        
         {
-            name: 'Embalaje',
+            name: 'Facturación',
             selector: 'estado_pedido',
             cell: row => <div className="estado">{row.estado_pedido 
                 ?  
                     (
                         <button
                         className="completo"
-                        >EMBALADO</button>
+                        >FACTURADO</button>
                     )
                 : 
                     (
                         <button 
                         className=""
-                        >SIN EMBALAR</button>
+                        >SIN FACTURAR</button>
                     )
                 }
             
             </div>,
             sortable: true,
-            grow: 0.7
+            grow: 1
             
         },
 
@@ -179,7 +203,7 @@ const RegistroPedidos  = () => {
             }
             </div>,
             sortable: true,
-            grow: 0.7
+            grow: 1
             
         },
        
@@ -216,11 +240,16 @@ const RegistroPedidos  = () => {
                 item.medio_pago.toLowerCase().includes(this.state.busqueda) ||
                 item.banco.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_deposito.toLowerCase().includes(this.state.busqueda) ||
-                item.tipo_documento.toLowerCase().includes(this.state.busqueda) 
-
+                item.tipo_documento.toLowerCase().includes(this.state.busqueda) ||
+                item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
+                item.num_documento.toLowerCase().includes(this.state.busqueda) ||
+                item.fecha_entrega.toLowerCase().includes(this.state.busqueda) ||
+                item.lugar_entrega.toLowerCase().includes(this.state.busqueda)
+                
                 ){
                     return item;
                 }
+                
             });
             this.setState({pedidos: search});
         }
