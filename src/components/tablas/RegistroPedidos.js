@@ -246,11 +246,11 @@ const RegistroPedidos  = () => {
                 item.medio_pago.toLowerCase().includes(this.state.busqueda) ||
                 item.banco.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_deposito.toLowerCase().includes(this.state.busqueda) ||
-                item.tipo_documento.toLowerCase().includes(this.state.busqueda) ||
-                item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
+                item.tipo_documento.toLowerCase().includes(this.state.busqueda) 
+                /* item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
                 item.num_documento.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_entrega.toLowerCase().includes(this.state.busqueda) ||
-                item.lugar_entrega.toLowerCase().includes(this.state.busqueda)
+                item.lugar_entrega.toLowerCase().includes(this.state.busqueda) */
                 
                 ){
                     return item;
