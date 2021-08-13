@@ -120,7 +120,7 @@ const Barra = () => {
                 <Paper>
                     <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                        <MenuItem onClick={handleClose}><Link to={'/pagos'} className="">Registro de Pagos</Link></MenuItem>
+                        {/* <MenuItem onClick={handleClose}><Link to={'/pagos'} className="">Registro de Pagos</Link></MenuItem> */}
                         <MenuItem onClick={handleClose}><Link to={'/pedidos'} className="">Registro de Pedidos</Link></MenuItem>
                         <MenuItem onClick={handleClose}><Link to={'/edita'} className="">Edita Pedidos</Link></MenuItem>
                         

@@ -109,12 +109,21 @@ const Pedido = ({pedido}) => {
                 },
                 showCancelButton: true
               })
+            const { value: cantidad_bultos } = await  Swal.fire({
+                input: 'number',
+                inputLabel: 'Ingrese la Cantidad de Bultos',
+                /* inputAttributes: {
+                  'aria-label': 'Type your message here'
+                }, */
+                showCancelButton: true
+              })
               
-              if (text) {
-                Swal.fire(`Se Entrego en ${tipo_entrega} el Dia ${text}`)
+              if (text && cantidad_bultos) {
+                Swal.fire(`Se Entrego en ${tipo_entrega} el Dia ${text} con ${cantidad_bultos} Bultos`)
                 pedido.estado_despacho = true;
                 pedido.fecha_entrega = text;
                 pedido.lugar_entrega = tipo_entrega;
+                pedido.bultos = cantidad_bultos;
                 
     
 
@@ -124,6 +133,8 @@ const Pedido = ({pedido}) => {
               } 
             
           }
+          
+         
                         
         
 
@@ -245,19 +256,19 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">Medio de Pago:</span><span>{pedido.medio_pago}</span></div>
                 <div className="disflex"><span className="t4">Banco:</span><span>{pedido.banco}</span></div>
                 <div className="disflex"><span className="t4">Fecha de Deposito:</span><span>{pedido.fecha_deposito}</span></div>
-                <div className="disflex"><span className="t4">Tipo de Documento:</span><span>{pedido.tipo_documento}</span></div>
+                <div className="disflex"><span className="t4">{pedido.tipo_documento}:</span><span>{pedido.num_documento}</span></div>
 
                 
                 
             </div>
             <div className="col-md-6">
                 
-                <div className="disflex"><span className="t4">N° de Documento:</span><span>{pedido.num_documento}</span></div>
                 <div className="disflex"><span className="t4">Confirmado Por:</span><span>{pedido.confirmado_por}</span></div>
                 <div className="disflex"><span className="t4">Fecha de Confirmación:</span><span>{pedido.fecha_confirmacion}</span></div>
                 <div className="disflex"><span className="t4">Numero de Transacción:</span><span>{pedido.num_transaccion}</span></div>
                 <div className="disflex"><span className="t4">Entregado Por:</span><span>{pedido.lugar_entrega}</span></div>
                 <div className="disflex"><span className="t4">Fecha de Entrega:</span><span>{pedido.fecha_entrega}</span></div>
+                <div className="disflex"><span className="t4">Bultos:</span><span>{pedido.bultos}</span></div>
                 <div><a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">Descargar PDF</button></a></div>
                 
  

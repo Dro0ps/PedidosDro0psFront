@@ -188,7 +188,7 @@ const RegistroPedidos  = () => {
 
         {
             name: 'ENTREGA',
-            selector: 'estado_pedido',
+            selector: 'estado_despacho',
             cell: row =>  <div className="estado">
             {row.estado_despacho 
             ?  

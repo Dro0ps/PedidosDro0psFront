@@ -88,6 +88,7 @@ const NuevoPedido = () => {
         num_transaccion: 'vacio',
         lugar_entrega: 'vacio',
         fecha_entrega: 'vacio',
+        bultos: 'vacio',
 
 
 
@@ -121,6 +122,7 @@ const NuevoPedido = () => {
         formData.append("num_transaccion", pedido.num_transaccion);
         formData.append("lugar_entrega", pedido.lugar_entrega);
         formData.append("fecha_entrega", pedido.fecha_entrega);
+        formData.append("bultos", pedido.bultos);
         formData.append("archivo", archivo); 
         
         // Almacenar en la base de Datos
@@ -175,6 +177,7 @@ const NuevoPedido = () => {
             num_transaccion: '',
             lugar_entrega: '',
             fecha_entrega: '',
+            bultos: '',
             
         })
 
