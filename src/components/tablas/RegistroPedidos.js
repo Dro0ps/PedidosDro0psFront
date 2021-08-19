@@ -43,8 +43,13 @@ const RegistroPedidos  = () => {
      }, [mensaje]);
  
      // revisar si pedidos tiene contenido
-     if(pedidos.length === 0 ) return <h1>No hay pedidos Registrados</h1>
+     /* if(pedidos.length === 0 ) return <h1>Cargando listado de Pedidos...</h1> */
+     if(pedidos.length === 0 ) return (
      
+            <div><h1>Cargando listado de Pedidos...</h1><div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>
+     
+     ) 
      
 
     const columnas = [
