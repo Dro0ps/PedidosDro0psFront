@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from 'react';
 import pedidoContext from '../../../context/pedidos/pedidoContext';
 import FormTarea from '../../tareas/FormTarea';
 import Swal from 'sweetalert2';
-import clienteAxios from '../../../config/axios';
+
 
 
 

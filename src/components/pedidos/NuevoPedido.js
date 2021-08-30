@@ -204,13 +204,15 @@ const NuevoPedido = () => {
         >
             
             {/**PRIMERA**/}
-            <div className="form-row">
+            <div className="form-wrp">
 
-            <div className="form-group col-md-auto margin_personal">
+            {/* <div className="form-group col-md-auto margin_personal"> */}
+            <div className="row mrg20">
+                <div className="col-md-6 col-sm-6 col-lg-6"></div>
             <TituloP>Pedido:</TituloP>
             <input 
                     type="number"
-                    className="form-control"
+                    className="brd-rd5"
                     placeholder="# Pedido"
                     name="num_pedido"
                     value={num_pedido}

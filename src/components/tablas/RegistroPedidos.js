@@ -58,7 +58,6 @@ const RegistroPedidos  = () => {
             selector: '_id',
             sortable: true,
             omit: true,
-            
         },
 
         {
@@ -81,7 +80,7 @@ const RegistroPedidos  = () => {
             name: 'Nombre del Cliente',
             selector: 'nombre_cliente',
             sortable: true,
-            grow: 1
+            grow: 0.6
             
         },
         {
@@ -292,7 +291,7 @@ const RegistroPedidos  = () => {
                     </div>
                 
                     {/* MUESTRA TABLA */}
-                    <div className= "table table-bordered" >
+                    <div className= " " >
                         <DataTable
                             columns={columnas}
                             /* data={pedidos} */

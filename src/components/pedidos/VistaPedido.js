@@ -55,13 +55,16 @@ const VistaPedido = () => {
                         </CSSTransition>
                     ))}
                 </TransitionGroup>
+
+                {/* <button     
+                    type="button"
+                    className="btn btn-eliminar"
+                    onClick={onClickEliminar}
+                    >Eliminar Pedido 
+                </button> */}
             </div>
 
-            {/* <button     
-            type="button"
-            className="btn btn-eliminar"
-            onClick={onClickEliminar}
-        >Eliminar Pedido &times;</button> */}
+            
         </Fragment>
     );
 }
