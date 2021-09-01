@@ -89,14 +89,14 @@ const RegistroPedidos  = () => {
             name: <Encabezado>Nombre del Cliente</Encabezado>,
             selector: 'nombre_cliente',
             sortable: true,
-            grow: 0.6
+            grow: 0.8
             
         },
         {
-            name: <Encabezado>Monto $</Encabezado>,
+            name: <Encabezado>Monto$</Encabezado>,
             selector: 'monto_pedido',
             sortable: true,
-            grow: 0.1
+            grow: 0
         },
         /* {
             name: 'Medio de Pago',
@@ -114,7 +114,7 @@ const RegistroPedidos  = () => {
             name: <Encabezado>Fecha Deposito</Encabezado>,
             selector: 'fecha_deposito',
             sortable: true,
-            grow: 0.1
+            grow: 0
         },
         
         /* {
@@ -127,7 +127,7 @@ const RegistroPedidos  = () => {
             name: <Encabezado>N° Identificador</Encabezado>,
             selector: 'num_transaccion',
             sortable: true,
-            grow: 0.5
+            grow: 0.6
             
         },
         /* {
@@ -307,12 +307,13 @@ const RegistroPedidos  = () => {
                     {/* MUESTRA TABLA */}
                     
                         <DataTable
+                            expandibleRows
                             columns={columnas}
                             data={this.state.pedidos}
                             pagination
                             paginationComponentOptions={pagOpciones}
                             fixedHeader
-                            fixedHeaderScrollHeight="900px"
+                            fixedHeaderScrollHeight="500px"
                             noDataComponent={<p>No se encontro ningún elemento</p>}
                         />
                    
