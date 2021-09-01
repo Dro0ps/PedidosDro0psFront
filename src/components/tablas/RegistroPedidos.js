@@ -4,10 +4,19 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import tareaContext from '../../context/tareas/tareaContext';
 import DataTable from 'react-data-table-component';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faThumbsUp, faFileInvoice, faHourglassHalf, faTruck } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faFileInvoice, faHourglassHalf, faTruck } from "@fortawesome/free-solid-svg-icons";
 
-import Pedido from '../pedidos/Pedido';
+import styled from '@emotion/styled';
 
+
+
+
+const Encabezado = styled.p`
+    font-family: 'PT Sans', sans-serif;
+    color: var(--gris2);
+    font-weight: bold;
+    font-size: 1.5rem;
+`;
 
 const RegistroPedidos  = () => {
 
@@ -61,7 +70,7 @@ const RegistroPedidos  = () => {
         },
 
         {
-            name: '# Pedido',
+            name: <Encabezado>#Pedido</Encabezado>,
             selector: 'num_pedido',
             sortable: true,
             /** Boton para llamar el Pedido **/
@@ -77,17 +86,17 @@ const RegistroPedidos  = () => {
 
         },
         {
-            name: 'Nombre del Cliente',
+            name: <Encabezado>Nombre del Cliente</Encabezado>,
             selector: 'nombre_cliente',
             sortable: true,
             grow: 0.6
             
         },
         {
-            name: 'Monto del Pedido',
+            name: <Encabezado>Monto $</Encabezado>,
             selector: 'monto_pedido',
             sortable: true,
-            grow: 0
+            grow: 0.1
         },
         /* {
             name: 'Medio de Pago',
@@ -96,16 +105,16 @@ const RegistroPedidos  = () => {
             grow: 0
         }, */
         {
-            name: 'Banco',
+            name: <Encabezado>Banco</Encabezado>,
             selector: 'banco',
             sortable: true,
             grow: 0
         },
         {
-            name: 'Fecha de Deposito',
+            name: <Encabezado>Fecha Deposito</Encabezado>,
             selector: 'fecha_deposito',
             sortable: true,
-            grow: 0
+            grow: 0.1
         },
         
         /* {
@@ -115,7 +124,7 @@ const RegistroPedidos  = () => {
             grow: 0
         }, */
         {
-            name: 'N° Identificador',
+            name: <Encabezado>N° Identificador</Encabezado>,
             selector: 'num_transaccion',
             sortable: true,
             grow: 0.5
@@ -140,7 +149,7 @@ const RegistroPedidos  = () => {
             grow: 0
         }, */
         {
-            name: 'PAGO',
+            name: <Encabezado>Pago</Encabezado>,
             selector: 'confirma_pago',
             cell: row => <div className="estado">{row.confirma_pago 
                 ?  
@@ -166,7 +175,7 @@ const RegistroPedidos  = () => {
         },
        
         {
-            name: 'FACTURA',
+            name: <Encabezado>Factura</Encabezado>,
             selector: 'estado_pedido',
             cell: row => <div className="estado">{row.estado_pedido 
                 ?  
@@ -191,7 +200,7 @@ const RegistroPedidos  = () => {
         },
 
         {
-            name: 'ENTREGA',
+            name: <Encabezado>Entrega</Encabezado>,
             selector: 'estado_despacho',
             cell: row =>  <div className="estado">
             {row.estado_despacho 
@@ -274,37 +283,39 @@ const RegistroPedidos  = () => {
 
 
                     {/* Campo BUSCADOR */}
-                    <div className="barraBusqueda">
-                        <input
-                        type="text"
-                        placeholder="Buscar"
-                        className="textField"
-                        name="busqueda"
-                        value={this.state.busqueda}
-                        onChange={this.onChange}
-                        />
 
-                        <button type="button" className="btnBuscar" /*onClick={onClear}*/>
-                            {" "}
-                            <FontAwesomeIcon icon={faSearch} />
-                        </button>
-                    </div>
+                    <nav class="navbar navbar-light bg-light justify-content-between mt-5">
+                        <form>
+                        <button class="btn " type="submit"><Encabezado>Actualizar Listado</Encabezado></button>
+
+                        </form>
+                        <form class="form-inline">
+                        
+                        <input
+                                type="text"
+                                placeholder="Buscar"
+                                className="border border-primary rounded"
+                                name="busqueda"
+                                value={this.state.busqueda}
+                                onChange={this.onChange}
+                            />
+                            
+                        </form>
+                    </nav>
+                    
                 
                     {/* MUESTRA TABLA */}
-                    <div className= " " >
+                    
                         <DataTable
                             columns={columnas}
-                            /* data={pedidos} */
                             data={this.state.pedidos}
-                            title="Listado de Pedidos"
                             pagination
                             paginationComponentOptions={pagOpciones}
                             fixedHeader
-                            fixedHeaderScrollHeight="600px"
- 
+                            fixedHeaderScrollHeight="900px"
                             noDataComponent={<p>No se encontro ningún elemento</p>}
                         />
-                    </div>
+                   
                 </Fragment>
             )
         }
