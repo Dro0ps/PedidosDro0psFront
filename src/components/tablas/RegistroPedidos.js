@@ -89,12 +89,12 @@ const RegistroPedidos  = () => {
             sortable: true,
             grow: 0
         },
-        {
+        /* {
             name: 'Medio de Pago',
             selector: 'medio_pago',
             sortable: true,
             grow: 0
-        },
+        }, */
         {
             name: 'Banco',
             selector: 'banco',
@@ -108,12 +108,12 @@ const RegistroPedidos  = () => {
             grow: 0
         },
         
-        {
+        /* {
             name: 'Tipo de Documento',
             selector: 'tipo_documento',
             sortable: true,
             grow: 0
-        },
+        }, */
         {
             name: 'N° Identificador',
             selector: 'num_transaccion',
