@@ -121,7 +121,7 @@ const RegistroPedidos  = () => {
             grow: 0.5
             
         },
-        {
+        /* {
             name: 'N° Documento',
             selector: 'num_documento',
             sortable: true,
@@ -138,7 +138,7 @@ const RegistroPedidos  = () => {
             selector: 'lugar_entrega',
             sortable: true,
             grow: 0
-        },
+        }, */
         {
             name: 'PAGO',
             selector: 'confirma_pago',
