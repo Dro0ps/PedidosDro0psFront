@@ -1,10 +1,9 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext } from 'react';
 import Swal from 'sweetalert2';
 import AuthContext from '../../context/autenticacion/authContext';
 import pedidoContext from '../../context/pedidos/pedidoContext';
 import FormTarea from '../tareas/FormTarea';
 import moment from 'moment';
-import styled from '@emotion/styled';
 
 
 
@@ -21,13 +20,6 @@ import { useTheme } from '@material-ui/core/styles';
 
 
 
-const TituloP = styled.p`
-    font-size: 1.2rem;
-`;
-
-
-
-
 
 
 /* import tareaContext from '../../context/tareas/tareaContext'; */
@@ -36,7 +28,7 @@ const Pedido = ({pedido}) => {
 
     // Obtener el state de pedidos
     const pedidosContext = useContext(pedidoContext);
-    const {elegirPedido, actualizarPedido, mostrarError} = pedidosContext;
+    const {elegirPedido, actualizarPedido } = pedidosContext;
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext);
@@ -59,7 +51,6 @@ const Pedido = ({pedido}) => {
 
 
 
-    
 
     /////////// FUNCIONES /////////////
 
@@ -115,45 +106,72 @@ const Pedido = ({pedido}) => {
 
     }
 
-    /////// ALGUNOS STATE Y FUNCIONES DE ENTREGA ///////
-    const [ fechaEntrega, guardarFechaEntrega ] = useState('');
-    const [ lugarEntrega, guardarLugarEntrega ] = useState('');
-    const [ cantidadBulto, guardarCantidadBulto ] = useState('');
+    const obtenerFechaEntrega = async () => {
 
-    const onSubmitDespacho = e => {
-        e.preventDefault();
+        const inputOptions = new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({
+                'Bascuñan': 'Bascuñan',
+                'Transporte': 'Transporte',
+                'Salvador': 'Salvador'
+              })
+            }, 1000)
+          })
+          const { value: tipo_entrega } = await Swal.fire({
+            title: 'Seleccione el tipo de entrega',
+            input: 'radio',
+            inputOptions: inputOptions,
+            inputValidator: (value) => {
+              if (!value) {
+                return 'Es Necesario Seleccionar una Opción'
+              }
 
-        // Validar los datos
-        if (fechaEntrega === '' || lugarEntrega === '' || cantidadBulto === '') {
-            
-              return;
-        }
+              
+            }
+          })
+          
+          if (tipo_entrega) {
+            Swal.fire({ html: `Tipo de entrega: ${tipo_entrega}` })
 
-        pedido.estado_despacho = true;
-        pedido.fecha_entrega = fechaEntrega;
-        pedido.lugar_entrega = lugarEntrega;
-        pedido.bultos = cantidadBulto;
-
-        actualizarPedido(pedido);
-
-
-
-        // Limpiar campos del formulario
-        e.target.reset() // No Funciona
-
-        handleClose();
-
-
-    }
-
-
-
-
-
-    //////////////////////////////////////////////////////////
-
+            const { value: text } = await  Swal.fire({
+                input: 'text',
+                inputLabel: 'Ingrese la Fecha de Entrega',
+                inputPlaceholder: 'Dia/Mes/Año',
+                inputAttributes: {
+                  'aria-label': 'Type your message here'
+                },
+                showCancelButton: true
+              })
+            const { value: cantidad_bultos } = await  Swal.fire({
+                input: 'number',
+                inputLabel: 'Ingrese la Cantidad de Bultos',
+                /* inputAttributes: {
+                  'aria-label': 'Type your message here'
+                }, */
+                showCancelButton: true
+              })
+              
+              if (text && cantidad_bultos) {
+                Swal.fire(`Se Entrego en ${tipo_entrega} el Dia ${text} con ${cantidad_bultos} Bultos`)
+                pedido.estado_despacho = true;
+                pedido.fecha_entrega = text;
+                pedido.lugar_entrega = tipo_entrega;
+                pedido.bultos = cantidad_bultos;
+                
+    
 
     
+                actualizarPedido(pedido);
+                
+              } 
+            
+          }
+          
+         
+                        
+        
+
+    }
 
     
     // Función que modifica el estado del pedido Embalado
@@ -231,7 +249,7 @@ const Pedido = ({pedido}) => {
 
 
     // Función que modifica el estado del Pedido Despachado
-    const cambiarEstadoDespacho = pedido => {
+/*     const cambiarEstadoDespacho = pedido => {
         if(pedido.estado_despacho){
             Swal.fire('Los Estados una vez Confirmados no Pueden ser Editados')
         } else if(pedido.estado_pedido) {
@@ -247,7 +265,7 @@ const Pedido = ({pedido}) => {
             }).then((result) => { 
                 
                 if(result.value) {
-                    handleClickOpen();
+                    obtenerFechaEntrega();
     
             }
         })
@@ -256,10 +274,7 @@ const Pedido = ({pedido}) => {
         }
 
         
-    }
-
-
-
+    } */
 
 
 
@@ -438,8 +453,8 @@ const Pedido = ({pedido}) => {
                             <button
                                 type="button"
                                 className="completo"
-                                onClick={() => cambiarEstadoDespacho(pedido)}
-                                
+                                /* onClick={() => cambiarEstadoDespacho(pedido)} */
+                                onClick={handleClickOpen}
                             >ENTREGADO</button>
                         )
                     : 
@@ -447,96 +462,34 @@ const Pedido = ({pedido}) => {
                             <button
                                 type="button"
                                 className="incompleto"
-                                onClick={() => cambiarEstadoDespacho(pedido)}
-                                
+                                /* onClick={() => cambiarEstadoDespacho(pedido)} */
+                                onClick={handleClickOpen}
                             >PENDIENTE POR ENTREGA</button>
                         )
                     }
 
                     <Dialog
-                        fullScreen={fullScreen}
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="responsive-dialog-title"
-                    >
-                        
-                        
-                        <form
-                            className="formulario-nuevo-pedido"
-                            onSubmit={onSubmitDespacho}
-                            
-                        >
-                        <DialogContent>
-                        <DialogTitle id="responsive-dialog-title">{"Complete los Datos de Entrega"}</DialogTitle>
-                            <DialogContentText>
-
-                                <div className="">
-                                    <TituloP>Tipo de Entrega:</TituloP>
-                                    <select
-                                        className="form-control"
-                                        name="lugarEntrega"
-                                        value={lugarEntrega}
-                                        onChange={e => guardarLugarEntrega(e.target.value)}
-                                    >
-                                        <option value="">-- Seleccione --</option>
-                                        <option value="Transporte">Transporte</option>
-                                        <option value="Retiro Bascuñan">Bascuñan</option>
-                                        <option value="Retiro Salvador Sanfuentes">Salvador Sanfuentes</option>
-                                        
-                                    </select>
-                                </div>
-
-                                <div className="mt-2">
-                                <TituloP>Fecha de Entrega:</TituloP>
-                                    <input 
-                                            type="date"
-                                            className="form-control"
-                                            name="fechaEntrega"
-                                            value={fechaEntrega}
-                                            onChange={e => guardarFechaEntrega(e.target.value)}
-                                        />
-                                </div>
-
-                                <div className="mt-2">
-                                <TituloP>Cantidad de Bultos:</TituloP>
-                                    <input 
-                                            type="number"
-                                            className="form-control"
-                                            name="cantidadBulto"
-                                            value={cantidadBulto}
-                                            onChange={e => guardarCantidadBulto(e.target.value)}
-                                        />
-                                </div>
-
-                                
-                                
-                                <DialogActions>
-                                
-                                {
-                                    (lugarEntrega, fechaEntrega, cantidadBulto ) &&
-
-                                    <input 
-                                        type="submit"
-                                        className="btn  btn-block"
-                                        value="Agregar Pedido"
-                                    />
-
-
-
-                                }
-                                
-                                    {/* <Button onClick={handleClose} color="primary" autoFocus>
-                                        Agree
-                                    </Button> */}
-                                </DialogActions>
-                                
-                            </DialogContentText>
-                        </DialogContent>
-                        </form>
-                        
-                        
-                        
-                    </Dialog>
+                    fullScreen={fullScreen}
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="responsive-dialog-title"
+                >
+                    <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText>
+                        Let Google help apps determine location. This means sending anonymous location data to
+                        Google, even when no apps are running.
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button autoFocus onClick={handleClose} color="primary">
+                        Disagree
+                    </Button>
+                    <Button onClick={handleClose} color="primary" autoFocus>
+                        Agree
+                    </Button>
+                    </DialogActions>
+                </Dialog>
 
                     </div>
                 
