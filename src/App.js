@@ -9,12 +9,15 @@ import Loading from './components/auth/Loading';
 import PedidoState from './context/pedidos/pedidoState';
 import TareaState from './context/tareas/tareaState';
 import PagoState from './context/pagos/pagoState';
+import NotaState from './context/notas/notaState';
 import AlertaState from './context/alertas/alertaState';
 import AuthState from './context/autenticacion/authState';
 import tokenAuth from './config/token';
 import RutaPrivada from './components/rutas/RutaPrivada';
 import RegistroPedidos from './components/tablas/RegistroPedidos';
 import Pagos from './components/pagos/Pagos';
+import Notas from './components/notas/Notas';
+
 
 
 // Revisar si tenemos un token
@@ -27,23 +30,26 @@ function App() {
   return (
     <PedidoState>
       <TareaState>
-        <PagoState>
-        <AlertaState>
-          <AuthState>
-            <Router>
-                <Switch>
-                    <Route exact path="/" component={Login} />
-                    <Route exact path="/nueva-dro0ps" component={NuevaCuenta} />
-                    <Route exact path="/Loading" component={Loading} />
-                    <RutaPrivada exact path="/pedidos" component={Pedidos} />
-                    <RutaPrivada exact path="/registros" component={RegistroPedidos} />
-                    <RutaPrivada exact path="/edita" component={EditarPedido} />
-                    <RutaPrivada exact path="/pagos" component={Pagos} />
-                </Switch>
-            </Router>
-          </AuthState>
-        </AlertaState>
-        </PagoState>
+        <NotaState>
+          <PagoState>
+            <AlertaState>
+              <AuthState>
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <Route exact path="/nueva-dro0ps" component={NuevaCuenta} />
+                        <Route exact path="/Loading" component={Loading} />
+                        <RutaPrivada exact path="/pedidos" component={Pedidos} />
+                        <RutaPrivada exact path="/registros" component={RegistroPedidos} />
+                        <RutaPrivada exact path="/edita" component={EditarPedido} />
+                        <RutaPrivada exact path="/pagos" component={Pagos} />
+                        <RutaPrivada exact path="/notas" component={Notas} />
+                    </Switch>
+                </Router>
+              </AuthState>
+            </AlertaState>
+          </PagoState>
+        </NotaState>
       </TareaState>
     </PedidoState>
   );

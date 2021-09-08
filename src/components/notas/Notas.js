@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import Barra from '../layout/Barra';
-import NuevoPago from './NuevoPago';
+import NuevaNota from './NuevaNota';
 import AuthContext from '../../context/autenticacion/authContext';
-import TablaPagos from './TablaPagos';
+import TablaNotas from './TablaNotas';
 
 
-const Pagos = () => {
+
+const Notas = () => {
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext);
@@ -20,13 +21,12 @@ const Pagos = () => {
 
     <Fragment>
         <Barra/>
-        
-        <NuevoPago/>
-        {/* <TablaPagos/> */}
+        <NuevaNota/>
+        <TablaNotas/>
     </Fragment>
     
     
     );
 }
  
-export default Pagos;
+export default Notas;
