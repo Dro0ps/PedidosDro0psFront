@@ -130,6 +130,12 @@ const RegistroPedidos  = () => {
             grow: 0.6
             
         },
+        {
+            name: <Encabezado>Fecha Confirmado</Encabezado>,
+            selector: 'fecha_confirmacion',
+            sortable: true,
+            grow: 0.3
+        },
         /* {
             name: 'N° Documento',
             selector: 'num_documento',
