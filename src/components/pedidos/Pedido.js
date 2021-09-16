@@ -243,7 +243,7 @@ const Pedido = ({pedido}) => {
     // Función que modifica el estado del pedido Embalado
     const cambiarEstado = pedido => {
 
-        if(pedido.doc_archivo){
+        if(pedido.estado_pedido){
             Swal.fire('Los Estados una vez Confirmados no Pueden ser Editados')
         } else if (pedido.confirma_pago) {
             Swal.fire({
