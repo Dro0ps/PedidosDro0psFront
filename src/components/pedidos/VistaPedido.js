@@ -21,10 +21,10 @@ const VistaPedido = () => {
     // Array destructuring para extraer el pedido actual
     const [pedidoActual] = pedido;
 
-    // Elimina un pedido
+    /* // Elimina un pedido
     const onClickEliminar = () => {
         eliminarPedido(pedidoActual._id)
-    }
+    } */
 
     return (
         <Fragment>

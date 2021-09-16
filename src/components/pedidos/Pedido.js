@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import AuthContext from '../../context/autenticacion/authContext';
 import pedidoContext from '../../context/pedidos/pedidoContext';
@@ -19,16 +19,25 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
 const TituloP = styled.p`
-    font-size: 1.2rem;
+    font-family: 'PT Sans', sans-serif;
+    color: var(--gris2);
+    font-weight: bold;
+    font-size: 1.5rem;
 `;
+
+moment.locale("es");
+
 
 /* import tareaContext from '../../context/tareas/tareaContext'; */
 
 const Pedido = ({pedido}) => {
 
+    
+
+
     // Obtener el state de pedidos
     const pedidosContext = useContext(pedidoContext);
-    const {elegirPedido, actualizarPedido, mostrarError} = pedidosContext;
+    const {actualizarPedido} = pedidosContext;
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext);
@@ -37,22 +46,33 @@ const Pedido = ({pedido}) => {
     ////////// COMPLEMENTOS DEL MATERIAL UI /////////
 
     const [open, setOpen] = React.useState(false);
+    const [openFact, setOpenFact] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleClickOpen = () => {
         setOpen(true);
       };
-    
-      const handleClose = () => {
-        setOpen(false);
+
+    const handleClose = () => {
+    setOpen(false);
+    };
+
+    const handleClickOpenFactura = () => {
+        setOpenFact(true);
       };
+    
+    const handleCloseFact = () => {
+        setOpenFact(false);
+    };
+    
 
     /////////// FUNCIONES /////////////
 
      ////////// SUBIR FACTURA /////
 
      const [ docArchivo, guardarDocArchivo ] = useState('');
+     const [ estadoFacturado, guardarEstadoFacturado ] = useState(false);
 
      const agregarFormFactura = async e => {
 
@@ -68,7 +88,13 @@ const Pedido = ({pedido}) => {
                }
            } );
 
-           console.log(respuesta);
+           if (respuesta) {
+               pedido.estado_pedido = true;
+               Swal.fire("El Documento Fue Agregado Correctamente", respuesta.data.mensaje, "success");
+           } 
+           actualizarPedido(pedido);
+
+           handleCloseFact();
          } catch (error) {
              console.log(error);
          }
@@ -119,21 +145,20 @@ const Pedido = ({pedido}) => {
                         
         const { value: text } = await  Swal.fire({
             input: 'text',
-            inputLabel: '# de Factura / Boleta',
+            inputLabel: '# de Documento Factura/Boleta',
             inputPlaceholder: 'Ingrese el Numero del Documento de Venta',
             inputAttributes: {
               'aria-label': 'Type your message here'
             },
             showCancelButton: true
           })
-          
-          if (text) {
-            Swal.fire(`El numero de Documento ingresado es el ${text}`)
-            pedido.estado_pedido = true;
-            pedido.num_documento = text;
 
-            actualizarPedido(pedido);
+          if (text) {
+            pedido.num_documento = text;
+            handleClickOpenFactura();
           } 
+
+          
 
     }
 
@@ -213,14 +238,12 @@ const Pedido = ({pedido}) => {
         })
 
         }
-
-       
-        
+ 
     }
     // Función que modifica el estado del pedido Embalado
     const cambiarEstado = pedido => {
 
-        if(pedido.estado_pedido){
+        if(pedido.doc_archivo){
             Swal.fire('Los Estados una vez Confirmados no Pueden ser Editados')
         } else if (pedido.confirma_pago) {
             Swal.fire({
@@ -297,19 +320,23 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">Banco:</span><span>{pedido.banco}</span></div>
                 <div className="disflex"><span className="t4">Fecha de Deposito:</span><span>{pedido.fecha_deposito}</span></div>
                 <div className="disflex"><span className="t4">{pedido.tipo_documento}:</span><span>{pedido.num_documento}</span></div>
-
+                {
+                    (pedido.estado_pedido) && 
+                    <div><a href={pedido.doc_archivo} target="_blank"><button type="button" className="btn btn-link">Descargar {pedido.tipo_documento}</button></a></div>
+                }
                 
                 
             </div>
             <div className="col-md-6">
                 
                 <div className="disflex"><span className="t4">Confirmado Por:</span><span>{pedido.confirmado_por}</span></div>
-                <div className="disflex"><span className="t4">Fecha de Confirmación:</span><span>{pedido.fecha_confirmacion}</span></div>
+                <div className="disflex"><span className="t4">Fecha de Confirmación:</span><span>{moment(pedido.fecha_confirmacion).format('MMMM Do YYYY, h:mm:ss a')}</span></div>
                 <div className="disflex"><span className="t4">Numero de Transacción:</span><span>{pedido.num_transaccion}</span></div>
                 <div className="disflex"><span className="t4">Entregado Por:</span><span>{pedido.lugar_entrega}</span></div>
-                <div className="disflex"><span className="t4">Fecha de Entrega:</span><span>{pedido.fecha_entrega}</span></div>
+                <div className="disflex"><span className="t4">Fecha de Entrega:</span><span>{moment(pedido.fecha_entrega).format('MMMM Do YYYY, h:mm:ss a')}</span></div>
                 <div className="disflex"><span className="t4">Bultos:</span><span>{pedido.bultos}</span></div>
-                <div><a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">Descargar PDF</button></a></div>
+                <div><a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">Descargar Pedido</button></a></div>
+                
                 
  
             </div>
@@ -389,7 +416,7 @@ const Pedido = ({pedido}) => {
                 {  (usuario.tipo==='ventas')
                     ?
                     <div className="estado">
-                    {pedido.estado_pedido 
+                    {(pedido.estado_pedido) 
                     ?  
                         (
                             <button
@@ -481,8 +508,7 @@ const Pedido = ({pedido}) => {
                         onClose={handleClose}
                         aria-labelledby="responsive-dialog-title"
                     >
-                        
-                        
+
                         <form
                             className="formulario-nuevo-pedido"
                             onSubmit={onSubmitDespacho}
@@ -491,7 +517,6 @@ const Pedido = ({pedido}) => {
                         <DialogContent>
                         <DialogTitle id="responsive-dialog-title">{"Complete los Datos de Entrega"}</DialogTitle>
                             <DialogContentText>
-
                                 <div className="">
                                     <TituloP>Tipo de Entrega:</TituloP>
                                     <select
@@ -507,18 +532,16 @@ const Pedido = ({pedido}) => {
                                         
                                     </select>
                                 </div>
-
                                 <div className="mt-2">
                                 <TituloP>Fecha de Entrega:</TituloP>
                                     <input 
-                                            type="date"
+                                            type="datetime-local"
                                             className="form-control"
                                             name="fechaEntrega"
                                             value={fechaEntrega}
                                             onChange={e => guardarFechaEntrega(e.target.value)}
                                         />
                                 </div>
-
                                 <div className="mt-2">
                                 <TituloP>Cantidad de Bultos:</TituloP>
                                     <input 
@@ -529,11 +552,7 @@ const Pedido = ({pedido}) => {
                                             onChange={e => guardarCantidadBulto(e.target.value)}
                                         />
                                 </div>
-
-                                
-                                
                                 <DialogActions>
-                                
                                 {
                                     (lugarEntrega, fechaEntrega, cantidadBulto ) &&
 
@@ -542,11 +561,7 @@ const Pedido = ({pedido}) => {
                                         className="btn  btn-block"
                                         value="Agregar Pedido"
                                     />
-
-
-
                                 }
-                                
                                     {/* <Button onClick={handleClose} color="primary" autoFocus>
                                         Agree
                                     </Button> */}
@@ -555,10 +570,61 @@ const Pedido = ({pedido}) => {
                             </DialogContentText>
                         </DialogContent>
                         </form>
-                        
-                        
-                        
                     </Dialog>
+
+                    {/** FORMULARIO PARA SUBIR FACTURA **/}
+
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={openFact}
+                        onClose={handleCloseFact}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+
+                        <form
+                            className="formulario-nuevo-pedido"
+                            onSubmit={onSubmitFactura}
+                            
+                        >
+                        <DialogContent>
+                        <DialogTitle id="responsive-dialog-title">{<TituloP>Subir Factura/Boleta</TituloP>}</DialogTitle>
+                            <div className="m-2">
+                                
+                                <div className="form-group">
+                                    <input 
+                                    type="file" 
+                                    accept=".pdf" 
+                                    className="form-control-file"
+                                    name="docArchivo"
+                                    onChange={leerArchivoFactura}
+                                />
+                                </div>
+                            </div>
+
+                            <DialogActions>
+                            {
+                                (docArchivo) &&
+
+                                <input 
+                                    type="submit"
+                                    className="btn  btn-block"
+                                    value="Guardar Documento"
+                                />
+                            }
+                                {/* <Button onClick={handleClose} color="primary" autoFocus>
+                                    Agree
+                                </Button> */}
+                            </DialogActions>
+                        </DialogContent>
+                        
+                        </form>
+                        <Button className="btn-block" onClick={handleCloseFact} color="primary">
+                            Salir
+                        </Button>
+                    </Dialog>
+
+
+                    {/** ////////////////////////////// **/}
 
                     </div>
                 
