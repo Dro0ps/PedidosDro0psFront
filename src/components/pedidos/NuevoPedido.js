@@ -84,11 +84,11 @@ const NuevoPedido = () => {
         banco: '',
         fecha_deposito: '',
         tipo_documento: '',
-        num_documento: 'vacio',
-        num_transaccion: 'vacio',
-        lugar_entrega: 'vacio',
-        fecha_entrega: 'vacio',
-        bultos: 'vacio',
+        num_documento: '',
+        num_transaccion: '',
+        lugar_entrega: '',
+        fecha_entrega: '',
+        bultos: '',
 
 
 
