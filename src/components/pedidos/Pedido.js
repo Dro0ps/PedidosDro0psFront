@@ -6,7 +6,7 @@ import FormTarea from '../tareas/FormTarea';
 import moment from 'moment';
 import styled from '@emotion/styled';
 
-
+import clienteAxios from '../../config/axios';
 
 // MATERIAL UI
 import Button from '@material-ui/core/Button';
@@ -18,17 +18,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-
-
-
 const TituloP = styled.p`
     font-size: 1.2rem;
 `;
-
-
-
-
-
 
 /* import tareaContext from '../../context/tareas/tareaContext'; */
 
@@ -56,15 +48,45 @@ const Pedido = ({pedido}) => {
         setOpen(false);
       };
 
-
-
-
-    
-
     /////////// FUNCIONES /////////////
 
+     ////////// SUBIR FACTURA /////
 
-    
+     const [ docArchivo, guardarDocArchivo ] = useState('');
+
+     const agregarFormFactura = async e => {
+
+         const formData = new FormData();
+
+         formData.append("doc_archivo", docArchivo)
+
+
+         try {
+             const respuesta = await clienteAxios.put(`/api/pedidos/up/${pedido._id}`, formData, {
+               headers: {
+                   'Content-Type' : 'multipart/form-data'
+               }
+           } );
+
+           console.log(respuesta);
+         } catch (error) {
+             console.log(error);
+         }
+
+     }
+
+   // Coloca EL ARCHIVO en el state
+   const leerArchivoFactura = e => {
+       guardarDocArchivo(e.target.files[0]);
+       
+   }
+
+   const onSubmitFactura = e => {
+       e.preventDefault();
+       agregarFormFactura();
+   }
+
+
     // ASIGNACÓN DE FECHA AUTOMATICO
     moment.locale();
     let fechaConfirmación = moment().format('LLL');
@@ -574,16 +596,28 @@ const Pedido = ({pedido}) => {
 
                 }
 
+            {/* <form
+                className="formulario-nuevo-pedido"
+                onSubmit={onSubmitFactura}
+            >
+                <div className="form-group col-md-8 margin_personal">
+                    <label>Archivo:</label>
+                    <input 
+                    type="file" 
+                    accept=".pdf" 
+                    className="form-control"
+                    name="docArchivo"
+                    onChange={leerArchivoFactura}
+                />
+                </div>
+
+                <input 
+                    type="submit"
+                    className="btn  btn-block"
+                    value="Agregar Factura"
+                />
+            </form> */}
             
-
-
-
-
-
-
-
-
-
         </div>
         <FormTarea/>
         </Fragment>
