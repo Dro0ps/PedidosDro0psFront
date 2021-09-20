@@ -4,7 +4,7 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import tareaContext from '../../context/tareas/tareaContext';
 import DataTable from 'react-data-table-component';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faFileInvoice, faHourglassHalf, faTruck } from "@fortawesome/free-solid-svg-icons";
+import { faFileInvoice, faTruck, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 
 import styled from '@emotion/styled';
 
@@ -169,14 +169,14 @@ const RegistroPedidos  = () => {
                     (
                         <button
                         className="iconoCompleto"
-                        ><FontAwesomeIcon icon={faThumbsUp} /></button>
+                        ><FontAwesomeIcon icon={faDollarSign} /></button>
                         
                     )
                 : 
                     (
                         <button 
                         className="iconoIncompleto"
-                        ><FontAwesomeIcon icon={faHourglassHalf} /></button>
+                        ><FontAwesomeIcon icon={faDollarSign} /></button>
                     )
                 }
             
