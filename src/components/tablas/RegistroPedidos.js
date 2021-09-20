@@ -89,7 +89,7 @@ const RegistroPedidos  = () => {
             name: <Encabezado>Nombre del Cliente</Encabezado>,
             selector: 'nombre_cliente',
             sortable: true,
-            grow: 0.8
+            grow: 0.5
             
         },
         {
@@ -127,15 +127,22 @@ const RegistroPedidos  = () => {
             name: <Encabezado>N° Identificador</Encabezado>,
             selector: 'num_transaccion',
             sortable: true,
-            grow: 0.6
+            grow: 0.3
             
         },
         {
             name: <Encabezado>Fecha Confirmado</Encabezado>,
             selector: 'fecha_confirmacion',
             sortable: true,
-            grow: 0.3
+            grow: 0.2
         },
+        {
+            name: <Encabezado>Creador por:</Encabezado>,
+            selector: 'creador.nombre',
+            sortable: true,
+            grow: 0.1
+        },
+        
         /* {
             name: 'N° Documento',
             selector: 'num_documento',
@@ -181,7 +188,7 @@ const RegistroPedidos  = () => {
         },
        
         {
-            name: <Encabezado>Factura</Encabezado>,
+            name: <Encabezado>Fact</Encabezado>,
             selector: 'estado_pedido',
             cell: row => <div className="estado">{row.estado_pedido 
                 ?  
@@ -194,7 +201,7 @@ const RegistroPedidos  = () => {
                     (
                         <button 
                         className="iconoIncompleto"
-                        ><FontAwesomeIcon icon={faHourglassHalf} /></button>
+                        ><FontAwesomeIcon icon={faFileInvoice} /></button>
                     )
                 }
             
@@ -206,7 +213,7 @@ const RegistroPedidos  = () => {
         },
 
         {
-            name: <Encabezado>Entrega</Encabezado>,
+            name: <Encabezado>Ent</Encabezado>,
             selector: 'estado_despacho',
             cell: row =>  <div className="estado">
             {row.estado_despacho 
@@ -222,7 +229,7 @@ const RegistroPedidos  = () => {
                     <button
                         type="button"
                         className="iconoIncompleto"
-                    ><FontAwesomeIcon icon={faHourglassHalf} /></button>
+                    ><FontAwesomeIcon icon={faTruck} /></button>
                 )
             }
             </div>,
@@ -265,6 +272,7 @@ const RegistroPedidos  = () => {
                 item.medio_pago.toLowerCase().includes(this.state.busqueda) ||
                 item.banco.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_deposito.toLowerCase().includes(this.state.busqueda) ||
+                item.creador.nombre.toLowerCase().includes(this.state.busqueda) ||
                 item.tipo_documento.toLowerCase().includes(this.state.busqueda) 
                 /* item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
                 item.num_documento.toLowerCase().includes(this.state.busqueda) ||

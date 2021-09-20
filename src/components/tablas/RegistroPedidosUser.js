@@ -89,7 +89,7 @@ const RegistroPedidos  = () => {
             name: <Encabezado>Nombre del Cliente</Encabezado>,
             selector: 'nombre_cliente',
             sortable: true,
-            grow: 0.8
+            grow: 0.5
             
         },
         {
@@ -127,7 +127,7 @@ const RegistroPedidos  = () => {
             name: <Encabezado>N° Identificador</Encabezado>,
             selector: 'num_transaccion',
             sortable: true,
-            grow: 0.6
+            grow: 0.3
             
         },
         {
@@ -181,7 +181,7 @@ const RegistroPedidos  = () => {
         },
        
         {
-            name: <Encabezado>Factura</Encabezado>,
+            name: <Encabezado>Fact</Encabezado>,
             selector: 'estado_pedido',
             cell: row => <div className="estado">{row.estado_pedido 
                 ?  
@@ -194,7 +194,7 @@ const RegistroPedidos  = () => {
                     (
                         <button 
                         className="iconoIncompleto"
-                        ><FontAwesomeIcon icon={faHourglassHalf} /></button>
+                        ><FontAwesomeIcon icon={faFileInvoice} /></button>
                     )
                 }
             
@@ -206,7 +206,7 @@ const RegistroPedidos  = () => {
         },
 
         {
-            name: <Encabezado>Entrega</Encabezado>,
+            name: <Encabezado>Ent</Encabezado>,
             selector: 'estado_despacho',
             cell: row =>  <div className="estado">
             {row.estado_despacho 
@@ -222,7 +222,7 @@ const RegistroPedidos  = () => {
                     <button
                         type="button"
                         className="iconoIncompleto"
-                    ><FontAwesomeIcon icon={faHourglassHalf} /></button>
+                    ><FontAwesomeIcon icon={faTruck} /></button>
                 )
             }
             </div>,
