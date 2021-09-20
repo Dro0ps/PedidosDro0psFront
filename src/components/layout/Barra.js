@@ -63,7 +63,8 @@ const Barra = () => {
                     <Link to={'/edita'} className=""><a>Editar Pedidos</a></Link>
                 : null} */}
 
-                 
+            <a><Link to={'/pedidos/user'} >Tus Pedidos</Link></a>
+
             <a><Link to={'/pedidos'} >Registro de Pedidos</Link></a>
                 
             </Nav>

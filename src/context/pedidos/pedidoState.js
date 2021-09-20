@@ -12,7 +12,8 @@ import {
     PEDIDO_ACTUAL,
     ELIMINAR_PEDIDO,
     ACTUALIZAR_PEDIDO,
-    ELEGIR_PEDIDO
+    ELEGIR_PEDIDO,
+    OBTENER_PEDIDOS_USER
 } from '../../types';
 
 import clienteAxios from '../../config/axios';
@@ -47,6 +48,28 @@ const PedidoState = props => {
 
             dispatch({
                 type: OBTENER_PEDIDOS,
+                payload: resultado.data.pedidos
+            })
+        } catch (error) {
+            const alerta = {
+                msg: 'Hubo un error',
+                categoria: 'alerta-error'
+            }
+            
+            dispatch({
+                type: PEDIDO_ERROR,
+                payload: alerta
+            })
+        }
+    }
+
+    // Obtener los pedidos por usuario
+    const obtenerPedidosUsuario = async () => {
+        try {
+            const resultado = await clienteAxios.get('/api/pedidos/user');
+
+            dispatch({
+                type: OBTENER_PEDIDOS_USER,
                 payload: resultado.data.pedidos
             })
         } catch (error) {
@@ -226,6 +249,7 @@ const PedidoState = props => {
                 pedidoseleccionado: state.pedidoseleccionado,
                 mostrarFormulario,
                 obtenerPedidos,
+                obtenerPedidosUsuario,
                 agregarPedido,
                 mostrarError,
                 pedidoActual,

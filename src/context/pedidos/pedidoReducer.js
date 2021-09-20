@@ -7,7 +7,8 @@ import {
     PEDIDO_ACTUAL,
     ELIMINAR_PEDIDO,
     ACTUALIZAR_PEDIDO,
-    ELEGIR_PEDIDO
+    ELEGIR_PEDIDO,
+    OBTENER_PEDIDOS_USER
 } from '../../types';
  
  
@@ -19,6 +20,11 @@ export default (state, action) => {
                 formulario: true
             }
         case OBTENER_PEDIDOS:
+            return {
+                ...state,
+                pedidos: action.payload
+            }
+        case OBTENER_PEDIDOS_USER:
             return {
                 ...state,
                 pedidos: action.payload

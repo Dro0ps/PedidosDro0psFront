@@ -89,9 +89,8 @@ const NuevoPedido = () => {
         lugar_entrega: '',
         fecha_entrega: '',
         bultos: '',
-
-
-
+        archivo: ''
+        
     });
 
     // Extraer datos de pedido
@@ -106,7 +105,7 @@ const NuevoPedido = () => {
 
     } = pedido;
 
-    const [archivo, guardarArchivo] = useState('');
+    const [archivoPedido, guardarArchivoPedido] = useState('');
 
     const agregarFormPedido = async (e) => {
         // crear formData
@@ -123,7 +122,7 @@ const NuevoPedido = () => {
         formData.append("lugar_entrega", pedido.lugar_entrega);
         formData.append("fecha_entrega", pedido.fecha_entrega);
         formData.append("bultos", pedido.bultos);
-        formData.append("archivo", archivo);
+        formData.append("archivo", archivoPedido);
         
         // Almacenar en la base de Datos
         try {
@@ -131,11 +130,13 @@ const NuevoPedido = () => {
           } catch (error) {
           console.log(error);
         }
+
+        guardarArchivoPedido('')
       };
 
     // coloca la imagen en el state
     const leerArchivo = e => {
-        guardarArchivo( e.target.files[0] );
+        guardarArchivoPedido( e.target.files[0] );
     }
 
     // Lee los contenidos del input
@@ -152,12 +153,12 @@ const NuevoPedido = () => {
 
         // Validar el pedido
         if( num_pedido === '' || nombre_cliente === '' || monto_pedido === '' || medio_pago === '' || banco === ''
-         || fecha_deposito === '' || tipo_documento === '' || archivo === ''  )  {
+         || fecha_deposito === '' || tipo_documento === '' || archivoPedido === ''  )  {
             mostrarError();
             return;
         }
 
-        // agregar al state
+        // Agregar al state
         agregarFormPedido();
         
 
@@ -178,6 +179,8 @@ const NuevoPedido = () => {
             lugar_entrega: '',
             fecha_entrega: '',
             bultos: '',
+            archivo: ''
+            
             
         })
 
@@ -321,7 +324,7 @@ const NuevoPedido = () => {
                     type="file" 
                     accept=".pdf" 
                     className="form-control"
-                    name="archivo"
+                    name="archivoPedido"
                     onChange={leerArchivo}
                 />
                 </div>
