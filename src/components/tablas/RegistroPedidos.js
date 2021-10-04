@@ -59,20 +59,27 @@ const RegistroPedidos  = () => {
             <div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>
      
      ) 
+
      
 
     const columnas = [
         {
             name: 'ID',
             selector: '_id',
-            sortable: true,
+            sortable: false,
             omit: true,
         },
-
+        {
+            name: 'Creado',
+            selector: 'creado',
+            sortable: true,
+           
+            
+        },
         {
             name: <Encabezado>#Pedido</Encabezado>,
             selector: 'num_pedido',
-            sortable: true,
+            sortable: false,
             /** Boton para llamar el Pedido **/
             cell: row => <button
             className='btn btn-blank'
@@ -88,14 +95,14 @@ const RegistroPedidos  = () => {
         {
             name: <Encabezado>Nombre del Cliente</Encabezado>,
             selector: 'nombre_cliente',
-            sortable: true,
+            sortable: false,
             grow: 0.5
             
         },
         {
             name: <Encabezado>Monto$</Encabezado>,
             selector: 'monto_pedido',
-            sortable: true,
+            sortable: false,
             grow: 0
         },
         /* {
@@ -107,13 +114,13 @@ const RegistroPedidos  = () => {
         {
             name: <Encabezado>Banco</Encabezado>,
             selector: 'banco',
-            sortable: true,
+            sortable: false,
             grow: 0
         },
         {
             name: <Encabezado>Fecha Deposito</Encabezado>,
             selector: 'fecha_deposito',
-            sortable: true,
+            sortable: false,
             grow: 0
         },
         
@@ -126,39 +133,39 @@ const RegistroPedidos  = () => {
         {
             name: <Encabezado>N° Identificador</Encabezado>,
             selector: 'num_transaccion',
-            sortable: true,
+            sortable: false,
             grow: 0.3
             
         },
         {
             name: <Encabezado>Fecha Confirmado</Encabezado>,
             selector: 'fecha_confirmacion',
-            sortable: true,
+            sortable: false,
             grow: 0.2
         },
         {
             name: <Encabezado>Creador por:</Encabezado>,
             selector: 'creador.nombre',
-            sortable: true,
+            sortable: false,
             grow: 0.1
         },
         
         /* {
             name: 'N° Documento',
             selector: 'num_documento',
-            sortable: true,
+            sortable: false,
             grow: 0
         },
         {
             name: 'Fecha de Entrega',
             selector: 'fecha_entrega',
-            sortable: true,
+            sortable: false,
             grow: 0
         },
         {
             name: 'Lugar de Entrega',
             selector: 'lugar_entrega',
-            sortable: true,
+            sortable: false,
             grow: 0
         }, */
         {
@@ -181,7 +188,7 @@ const RegistroPedidos  = () => {
                 }
             
             </div>,
-            sortable: true,
+            sortable: false,
             grow: 0
             
             
@@ -206,7 +213,7 @@ const RegistroPedidos  = () => {
                 }
             
             </div>,
-            sortable: true,
+            sortable: false,
             grow: 0
             
             
@@ -233,7 +240,7 @@ const RegistroPedidos  = () => {
                 )
             }
             </div>,
-            sortable: true,
+            sortable: false,
             grow: 0
         
             
@@ -273,7 +280,9 @@ const RegistroPedidos  = () => {
                 item.banco.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_deposito.toLowerCase().includes(this.state.busqueda) ||
                 item.creador.nombre.toLowerCase().includes(this.state.busqueda) ||
-                item.tipo_documento.toLowerCase().includes(this.state.busqueda) 
+                item.tipo_documento.toLowerCase().includes(this.state.busqueda) ||
+                item.num_transaccion.toLowerCase().includes(this.state.busqueda) 
+                
                 /* item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
                 item.num_documento.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_entrega.toLowerCase().includes(this.state.busqueda) ||
