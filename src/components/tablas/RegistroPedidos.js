@@ -73,7 +73,7 @@ const RegistroPedidos  = () => {
             name: 'Creado',
             selector: 'creado',
             sortable: true,
-           
+            omit: true,
             
         },
         {
@@ -188,7 +188,7 @@ const RegistroPedidos  = () => {
                 }
             
             </div>,
-            sortable: false,
+            sortable: true,
             grow: 0
             
             
@@ -213,7 +213,7 @@ const RegistroPedidos  = () => {
                 }
             
             </div>,
-            sortable: false,
+            sortable: true,
             grow: 0
             
             
@@ -240,7 +240,7 @@ const RegistroPedidos  = () => {
                 )
             }
             </div>,
-            sortable: false,
+            sortable: true,
             grow: 0
         
             
@@ -280,9 +280,7 @@ const RegistroPedidos  = () => {
                 item.banco.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_deposito.toLowerCase().includes(this.state.busqueda) ||
                 item.creador.nombre.toLowerCase().includes(this.state.busqueda) ||
-                item.tipo_documento.toLowerCase().includes(this.state.busqueda) ||
-                item.num_transaccion.toLowerCase().includes(this.state.busqueda) 
-                
+                item.tipo_documento.toLowerCase().includes(this.state.busqueda) 
                 /* item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
                 item.num_documento.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_entrega.toLowerCase().includes(this.state.busqueda) ||

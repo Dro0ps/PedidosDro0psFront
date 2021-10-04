@@ -264,8 +264,7 @@ const RegistroPedidos  = () => {
                 item.monto_pedido.toLowerCase().includes(this.state.busqueda) ||
                 item.medio_pago.toLowerCase().includes(this.state.busqueda) ||
                 item.banco.toLowerCase().includes(this.state.busqueda) ||
-                item.fecha_deposito.toLowerCase().includes(this.state.busqueda) ||
-                item.tipo_documento.toLowerCase().includes(this.state.busqueda) 
+                item.fecha_deposito.toLowerCase().includes(this.state.busqueda)
                 /* item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
                 item.num_documento.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_entrega.toLowerCase().includes(this.state.busqueda) ||
@@ -273,7 +272,8 @@ const RegistroPedidos  = () => {
                 
                 ){
                     return item;
-                }
+                } else {return <p>No encontrado</p>;}
+
                 
             });
             this.setState({pedidos: search});
