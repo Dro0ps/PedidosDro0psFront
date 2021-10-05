@@ -194,13 +194,7 @@ const Pedido = ({pedido}) => {
     }
 
 
-
-
-
     //////////////////////////////////////////////////////////
-
-
-    
 
     
     // Función que modifica el estado del pedido Embalado
@@ -223,17 +217,7 @@ const Pedido = ({pedido}) => {
                 
                 
                 if(result.value) {
-
                     obtenerNumeroConfirmacion();
-
-                   
-
-                     /*  if(!pedido.confirma_pago) {
-                        pedido.confirma_pago = true;
-                      }
-                    actualizarPedido(pedido); */
-
-                   
             }
         })
 

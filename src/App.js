@@ -44,7 +44,7 @@ function App() {
                         <RutaPrivada exact path="/pedidos" component={Pedidos} />
                         <RutaPrivada exact path="/pedidos/user" component={PedidosUsuario} />
                         <RutaPrivada exact path="/registros" component={RegistroPedidos} />
-                        <RutaPrivada exact path="/edita" component={EditarPedido} />
+                        <RutaPrivada exact path="/edita-dro0ps" component={EditarPedido} />
                         <RutaPrivada exact path="/pagos" component={Pagos} />
                         <RutaPrivada exact path="/notas" component={Notas} />
                     </Switch>

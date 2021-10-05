@@ -74,7 +74,6 @@ const RegistroPedidos  = () => {
             selector: 'creado',
             sortable: true,
             omit: true,
-            
         },
         {
             name: <Encabezado>#Pedido</Encabezado>,
@@ -276,13 +275,11 @@ const RegistroPedidos  = () => {
                 item.num_pedido.toLowerCase().includes(this.state.busqueda) ||
                 item.nombre_cliente.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").includes(this.state.busqueda) ||
                 item.monto_pedido.toLowerCase().includes(this.state.busqueda) ||
-                item.medio_pago.toLowerCase().includes(this.state.busqueda) ||
                 item.banco.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_deposito.toLowerCase().includes(this.state.busqueda) ||
                 item.creador.nombre.toLowerCase().includes(this.state.busqueda) ||
-                item.tipo_documento.toLowerCase().includes(this.state.busqueda) 
-                /* item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
-                item.num_documento.toLowerCase().includes(this.state.busqueda) ||
+                item.num_transaccion.toLowerCase().includes(this.state.busqueda) 
+                /* item.num_documento.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_entrega.toLowerCase().includes(this.state.busqueda) ||
                 item.lugar_entrega.toLowerCase().includes(this.state.busqueda) */
                 
@@ -334,7 +331,7 @@ const RegistroPedidos  = () => {
                             pagination
                             paginationComponentOptions={pagOpciones}
                             fixedHeader
-                            fixedHeaderScrollHeight="500px"
+                            fixedHeaderScrollHeight="1000px"
                             noDataComponent={<p>No se encontro ningún elemento</p>}
                         />
                    
