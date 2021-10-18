@@ -196,7 +196,6 @@ const NuevoPedido = () => {
         <Fragment>
             <Button variant="contained" onClick={handleClickOpen}>Registrar Nuevo Pedido</Button>
             <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-            <DialogTitle>Rellene los Campos</DialogTitle>
             <DialogContent>
         {/* Inicio del recuadro */}
             
@@ -207,15 +206,14 @@ const NuevoPedido = () => {
         >
             
             {/**PRIMERA**/}
-            <div className="form-wrp">
+            <div className="form-row"> 
 
-            {/* <div className="form-group col-md-auto margin_personal"> */}
-            <div className="row mrg20">
-                <div className="col-md-6 col-sm-6 col-lg-6"></div>
+
+            <div className="form-group col-md-auto margin_personal">
             <TituloP>Pedido:</TituloP>
             <input 
                     type="number"
-                    className="brd-rd5"
+                    className="form-control"
                     placeholder="# Pedido"
                     name="num_pedido"
                     value={num_pedido}
@@ -318,32 +316,20 @@ const NuevoPedido = () => {
                     </select>
                 </div>
 
-                <div className="form-group col-md-8 margin_personal">
-                    <label>Archivo:</label>
+                </div>
+
+                <div className="input-group ">
                     <input 
                     type="file" 
                     accept=".pdf" 
-                    className="form-control"
+                    className="form-control margin_personal"
+                    id="inputGroupFile04"
+                    aria-describedby="inputGroupFileAddon04"
+                    aria-label="Upload"
                     name="archivoPedido"
                     onChange={leerArchivo}
                 />
-                </div>
                 
-
-                {/* <div className="form-group col-md-auto margin_personal">
-                    <TituloP>Estado:</TituloP>
-                    <select
-                        className="form-control"
-                        name="estado_pedido"
-                        value={estado_pedido}
-                        onChange={onChangePedido}
-                    >
-                        <option value="estado_pedido">{estado_pedido}</option>
-                        <option value="Completo">Completo</option>
-                        <option value="Pendiente">Pendiente</option>
-                        
-                    </select>
-                </div> */}
                 </div>
                 <input 
                     type="submit"

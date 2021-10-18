@@ -9,7 +9,7 @@ const VistaPedido = () => {
 
     // Extrar pedidos de state inicial
     const pedidosContext = useContext(pedidoContext);
-    const { pedido, eliminarPedido } = pedidosContext;
+    const { pedido } = pedidosContext;
 
     // obtener las tareas del pedido
     const tareasContext = useContext(tareaContext);
