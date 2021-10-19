@@ -1,12 +1,10 @@
-import React, { useContext, useState, useEffect, Fragment } from "react";
+import React, { useContext, useState, Fragment } from "react";
 import pedidoContext from "../../context/pedidos/pedidoContext";
 import tareaContext from "../../context/tareas/tareaContext";
 import authContext from "../../context/autenticacion/authContext";
-import styled from "@emotion/styled";
 import moment from "moment";
 
 // Material UI
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -14,21 +12,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: "flex",
-
-    flexWrap: "wrap",
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-}));
-
 const FormTarea = () => {
   // Ventana Emergente UI
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -56,14 +41,10 @@ const FormTarea = () => {
   const {
     tareaseleccionada,
     errortarea,
-    formulario,
-    mostrarFormularioTarea,
-    tareaspedido,
     agregarTarea,
     validarTarea,
     obtenerTareas,
     actualizarTarea,
-    limpiarTarea,
   } = tareasContext;
 
   // Effect que detecta si hay una tarea seleccionada

@@ -1,45 +1,10 @@
-import React, { useContext } from 'react';
-import authContext from '../../context/autenticacion/authContext';
-import pedidoContext from '../../context/pedidos/pedidoContext';
-import tareaContext from '../../context/tareas/tareaContext';
+import React from 'react';
+
 
 
 
 const Tarea = ({tarea}) => {
  
-    // Extrar si un pedido esta activo
-    const pedidosContext = useContext(pedidoContext);
-    const { pedido } = pedidosContext;
-
-
-    // obtener la función del context de tarea
-    const tareasContext = useContext(tareaContext);
-    const { eliminarTarea, obtenerTareas, actualizarTarea, guardarTareaActual } = tareasContext;
-
-
-    // Extraer el pedido
-    const [pedidoActual] = pedido;
- 
-    // Función que se ejecuta cuando el usuario presiona el btn de eliminar tarea
-    const tareaEliminar = id => {
-        eliminarTarea(id, pedidoActual._id);
-        obtenerTareas(pedidoActual.id)
-    }
-
-    // Función que modifica el estado de las tareas
-    /* const cambiarEstado = tarea => {
-        if(tarea.estado) {
-            tarea.estado = false;
-        } else {
-            tarea.estado = true
-        }
-        actualizarTarea(tarea);
-    } */
-
-    // Agrega una tarea actual cuando el usuario desea editarla
-    const seleccionarTarea = tarea => {
-        guardarTareaActual(tarea);
-    }
 
     return ( 
         <div className="row btop">

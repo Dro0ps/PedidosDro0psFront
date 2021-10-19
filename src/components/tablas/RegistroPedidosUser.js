@@ -22,7 +22,7 @@ const RegistroPedidos  = () => {
 
      // Extrar pedidos de state inicial
      const pedidosContext = useContext(pedidoContext);
-     const { mensaje, pedidos, pedidoActual, obtenerPedidos, obtenerPedidosUsuario } = pedidosContext;
+     const { mensaje, pedidos, pedidoActual, obtenerPedidosUsuario } = pedidosContext;
 
      // obtener la función del context de tarea
     const tareasContext = useContext(tareaContext);

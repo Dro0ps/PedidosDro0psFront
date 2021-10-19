@@ -1,17 +1,15 @@
 import React, { Fragment, useState, useContext } from 'react';
 import pedidoContext from '../../context/pedidos/pedidoContext';
 import styled from '@emotion/styled';
-import AuthContext from '../../context/autenticacion/authContext';
 
 
 
 // Material UI
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+
 
 
 
@@ -21,38 +19,10 @@ const TituloP = styled.p`
     font-size: 1.2rem;
 `;
 
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-  
-  
-}));
-
-
-
 const NuevoPedido = () => {
+    
+    // Ventana Emergente UI
 
-    // Extraer la información de autenticación
-    const authContext = useContext(AuthContext);
-    const { usuario } = authContext;
-
-
-
-      // Ventana Emergente UI
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -67,9 +37,7 @@ const NuevoPedido = () => {
     // Obtener el state del formulario
     const pedidosContext = useContext(pedidoContext);
     const {
-        formulario,
         errorformulario,
-        mostrarFormulario,
         agregarPedido,
         mostrarError 
     } = pedidosContext;
@@ -185,11 +153,6 @@ const NuevoPedido = () => {
         })
 
         handleClose();
-    }
-
-    // Mostrar el formulario
-    const onClickFormulario = () => {
-        mostrarFormulario();
     }
 
     return ( 

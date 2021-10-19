@@ -1,4 +1,4 @@
-import React, {useContext, Fragment, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import AuthContext from '../../context/autenticacion/authContext';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
@@ -62,7 +62,7 @@ const Barra = () => {
                 {/* {usuario.tipo!==('bodega') ? 
                     <Link to={'/edita'} className=""><a>Editar Pedidos</a></Link>
                 : null} */}
-
+            
             <a><Link to={'/pedidos/user'} >Tus Pedidos</Link></a>
 
             <a><Link to={'/pedidos'} >Registro de Pedidos</Link></a>

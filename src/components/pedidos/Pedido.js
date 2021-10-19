@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState, useEffect } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 import AuthContext from '../../context/autenticacion/authContext';
 import pedidoContext from '../../context/pedidos/pedidoContext';
@@ -72,7 +72,7 @@ const Pedido = ({pedido}) => {
      ////////// SUBIR FACTURA /////
 
      const [ docArchivo, guardarDocArchivo ] = useState('');
-     const [ estadoFacturado, guardarEstadoFacturado ] = useState(false);
+     
 
      const agregarFormFactura = async e => {
 
@@ -306,7 +306,7 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">{pedido.tipo_documento}:</span><span>{pedido.num_documento}</span></div>
                 {
                     (pedido.estado_pedido) && 
-                    <div><a href={pedido.doc_archivo} target="_blank"><button type="button" className="btn btn-link">Descargar {pedido.tipo_documento}</button></a></div>
+                    <div><a href={pedido.doc_archivo} ><button type="button" className="btn btn-link">Descargar {pedido.tipo_documento}</button></a></div>
                 }
                 
                 
@@ -319,7 +319,7 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">Entregado Por:</span><span>{pedido.lugar_entrega}</span></div>
                 <div className="disflex"><span className="t4">Fecha de Entrega:</span><span>{moment(pedido.fecha_entrega).format('MMMM Do YYYY, h:mm:ss a')}</span></div>
                 <div className="disflex"><span className="t4">Bultos:</span><span>{pedido.bultos}</span></div>
-                <div><a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">Descargar Pedido</button></a></div>
+                <div><a href={pedido.archivo} ><button type="button" className="btn btn-link">Descargar Pedido</button></a></div>
                 
                 
  

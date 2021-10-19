@@ -9,7 +9,7 @@ const VistaEdicion = () => {
 
     // Extrar pedidos de state inicial
     const pedidosContext = useContext(pedidoContext);
-    const { pedido, eliminarPedido } = pedidosContext;
+    const { pedido, /* eliminarPedido  */} = pedidosContext;
 
     // obtener las tareas del pedido
     const tareasContext = useContext(tareaContext);
@@ -22,9 +22,9 @@ const VistaEdicion = () => {
     const [pedidoActual] = pedido;
 
     // Elimina un pedido
-    const onClickEliminar = () => {
+    /* const onClickEliminar = () => {
         eliminarPedido(pedidoActual._id)
-    }
+    } */
 
     return (
         <Fragment>
