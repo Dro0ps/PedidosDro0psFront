@@ -1,11 +1,12 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 import AuthContext from '../../context/autenticacion/authContext';
 import pedidoContext from '../../context/pedidos/pedidoContext';
 import FormTarea from '../tareas/FormTarea';
 import moment from 'moment';
+import styled from '@emotion/styled';
 
-
+import clienteAxios from '../../config/axios';
 
 // MATERIAL UI
 import Button from '@material-ui/core/Button';
@@ -17,18 +18,26 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
+const TituloP = styled.p`
+    font-family: 'PT Sans', sans-serif;
+    color: var(--gris2);
+    font-weight: bold;
+    font-size: 1.5rem;
+`;
 
-
-
+moment.locale("es");
 
 
 /* import tareaContext from '../../context/tareas/tareaContext'; */
 
 const Pedido = ({pedido}) => {
 
+    
+
+
     // Obtener el state de pedidos
     const pedidosContext = useContext(pedidoContext);
-    const {elegirPedido, actualizarPedido } = pedidosContext;
+    const {actualizarPedido} = pedidosContext;
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext);
@@ -37,25 +46,73 @@ const Pedido = ({pedido}) => {
     ////////// COMPLEMENTOS DEL MATERIAL UI /////////
 
     const [open, setOpen] = React.useState(false);
+    const [openFact, setOpenFact] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleClickOpen = () => {
         setOpen(true);
       };
-    
-      const handleClose = () => {
-        setOpen(false);
+
+    const handleClose = () => {
+    setOpen(false);
+    };
+
+    const handleClickOpenFactura = () => {
+        setOpenFact(true);
       };
-
-
-
-
+    
+    const handleCloseFact = () => {
+        setOpenFact(false);
+    };
+    
 
     /////////// FUNCIONES /////////////
 
+     ////////// SUBIR FACTURA /////
 
-    
+     const [ docArchivo, guardarDocArchivo ] = useState('');
+     
+
+     const agregarFormFactura = async e => {
+
+         const formData = new FormData();
+
+         formData.append("doc_archivo", docArchivo)
+
+
+         try {
+             const respuesta = await clienteAxios.put(`/api/pedidos/up/${pedido._id}`, formData, {
+               headers: {
+                   'Content-Type' : 'multipart/form-data'
+               }
+           } );
+
+           if (respuesta) {
+               pedido.estado_pedido = true;
+               Swal.fire("El Documento Fue Agregado Correctamente", respuesta.data.mensaje, "success");
+           } 
+           actualizarPedido(pedido);
+
+           handleCloseFact();
+         } catch (error) {
+             console.log(error);
+         }
+
+     }
+
+   // Coloca EL ARCHIVO en el state
+   const leerArchivoFactura = e => {
+       guardarDocArchivo(e.target.files[0]);
+       
+   }
+
+   const onSubmitFactura = e => {
+       e.preventDefault();
+       agregarFormFactura();
+   }
+
+
     // ASIGNACÓN DE FECHA AUTOMATICO
     moment.locale();
     let fechaConfirmación = moment().format('LLL');
@@ -88,90 +145,56 @@ const Pedido = ({pedido}) => {
                         
         const { value: text } = await  Swal.fire({
             input: 'text',
-            inputLabel: '# de Factura / Boleta',
+            inputLabel: '# de Documento Factura/Boleta',
             inputPlaceholder: 'Ingrese el Numero del Documento de Venta',
             inputAttributes: {
               'aria-label': 'Type your message here'
             },
             showCancelButton: true
           })
-          
-          if (text) {
-            Swal.fire(`El numero de Documento ingresado es el ${text}`)
-            pedido.estado_pedido = true;
-            pedido.num_documento = text;
 
-            actualizarPedido(pedido);
+          if (text) {
+            pedido.num_documento = text;
+            handleClickOpenFactura();
           } 
 
+          
+
     }
 
-    const obtenerFechaEntrega = async () => {
+    /////// ALGUNOS STATE Y FUNCIONES DE ENTREGA ///////
+    const [ fechaEntrega, guardarFechaEntrega ] = useState('');
+    const [ lugarEntrega, guardarLugarEntrega ] = useState('');
+    const [ cantidadBulto, guardarCantidadBulto ] = useState('');
 
-        const inputOptions = new Promise((resolve) => {
-            setTimeout(() => {
-              resolve({
-                'Bascuñan': 'Bascuñan',
-                'Transporte': 'Transporte',
-                'Salvador': 'Salvador'
-              })
-            }, 1000)
-          })
-          const { value: tipo_entrega } = await Swal.fire({
-            title: 'Seleccione el tipo de entrega',
-            input: 'radio',
-            inputOptions: inputOptions,
-            inputValidator: (value) => {
-              if (!value) {
-                return 'Es Necesario Seleccionar una Opción'
-              }
+    const onSubmitDespacho = e => {
+        e.preventDefault();
 
-              
-            }
-          })
-          
-          if (tipo_entrega) {
-            Swal.fire({ html: `Tipo de entrega: ${tipo_entrega}` })
-
-            const { value: text } = await  Swal.fire({
-                input: 'text',
-                inputLabel: 'Ingrese la Fecha de Entrega',
-                inputPlaceholder: 'Dia/Mes/Año',
-                inputAttributes: {
-                  'aria-label': 'Type your message here'
-                },
-                showCancelButton: true
-              })
-            const { value: cantidad_bultos } = await  Swal.fire({
-                input: 'number',
-                inputLabel: 'Ingrese la Cantidad de Bultos',
-                /* inputAttributes: {
-                  'aria-label': 'Type your message here'
-                }, */
-                showCancelButton: true
-              })
-              
-              if (text && cantidad_bultos) {
-                Swal.fire(`Se Entrego en ${tipo_entrega} el Dia ${text} con ${cantidad_bultos} Bultos`)
-                pedido.estado_despacho = true;
-                pedido.fecha_entrega = text;
-                pedido.lugar_entrega = tipo_entrega;
-                pedido.bultos = cantidad_bultos;
-                
-    
-
-    
-                actualizarPedido(pedido);
-                
-              } 
+        // Validar los datos
+        if (fechaEntrega === '' || lugarEntrega === '' || cantidadBulto === '') {
             
-          }
-          
-         
-                        
-        
+              return;
+        }
+
+        pedido.estado_despacho = true;
+        pedido.fecha_entrega = fechaEntrega;
+        pedido.lugar_entrega = lugarEntrega;
+        pedido.bultos = cantidadBulto;
+
+        actualizarPedido(pedido);
+
+
+
+        // Limpiar campos del formulario
+        e.target.reset() // No Funciona
+
+        handleClose();
+
 
     }
+
+
+    //////////////////////////////////////////////////////////
 
     
     // Función que modifica el estado del pedido Embalado
@@ -194,24 +217,12 @@ const Pedido = ({pedido}) => {
                 
                 
                 if(result.value) {
-
                     obtenerNumeroConfirmacion();
-
-                   
-
-                     /*  if(!pedido.confirma_pago) {
-                        pedido.confirma_pago = true;
-                      }
-                    actualizarPedido(pedido); */
-
-                   
             }
         })
 
         }
-
-       
-        
+ 
     }
     // Función que modifica el estado del pedido Embalado
     const cambiarEstado = pedido => {
@@ -249,7 +260,7 @@ const Pedido = ({pedido}) => {
 
 
     // Función que modifica el estado del Pedido Despachado
-/*     const cambiarEstadoDespacho = pedido => {
+    const cambiarEstadoDespacho = pedido => {
         if(pedido.estado_despacho){
             Swal.fire('Los Estados una vez Confirmados no Pueden ser Editados')
         } else if(pedido.estado_pedido) {
@@ -265,7 +276,7 @@ const Pedido = ({pedido}) => {
             }).then((result) => { 
                 
                 if(result.value) {
-                    obtenerFechaEntrega();
+                    handleClickOpen();
     
             }
         })
@@ -274,10 +285,7 @@ const Pedido = ({pedido}) => {
         }
 
         
-    } */
-
-
-
+    }
 
     return (  
         <Fragment>
@@ -290,19 +298,23 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">Banco:</span><span>{pedido.banco}</span></div>
                 <div className="disflex"><span className="t4">Fecha de Deposito:</span><span>{pedido.fecha_deposito}</span></div>
                 <div className="disflex"><span className="t4">{pedido.tipo_documento}:</span><span>{pedido.num_documento}</span></div>
-
+                {
+                    (pedido.estado_pedido) && 
+                    <div><a href={pedido.doc_archivo} ><button type="button" className="btn btn-link">Descargar {pedido.tipo_documento}</button></a></div>
+                }
                 
                 
             </div>
             <div className="col-md-6">
                 
                 <div className="disflex"><span className="t4">Confirmado Por:</span><span>{pedido.confirmado_por}</span></div>
-                <div className="disflex"><span className="t4">Fecha de Confirmación:</span><span>{pedido.fecha_confirmacion}</span></div>
+                <div className="disflex"><span className="t4">Fecha de Confirmación:</span><span>{moment(pedido.fecha_confirmacion).format('MMMM Do YYYY, h:mm:ss a')}</span></div>
                 <div className="disflex"><span className="t4">Numero de Transacción:</span><span>{pedido.num_transaccion}</span></div>
                 <div className="disflex"><span className="t4">Entregado Por:</span><span>{pedido.lugar_entrega}</span></div>
-                <div className="disflex"><span className="t4">Fecha de Entrega:</span><span>{pedido.fecha_entrega}</span></div>
+                <div className="disflex"><span className="t4">Fecha de Entrega:</span><span>{moment(pedido.fecha_entrega).format('MMMM Do YYYY, h:mm:ss a')}</span></div>
                 <div className="disflex"><span className="t4">Bultos:</span><span>{pedido.bultos}</span></div>
-                <div><a href={pedido.archivo} target="_blank"><button type="button" className="btn btn-link">Descargar PDF</button></a></div>
+                <div><a href={pedido.archivo} ><button type="button" className="btn btn-link">Descargar Pedido</button></a></div>
+                
                 
  
             </div>
@@ -377,12 +389,10 @@ const Pedido = ({pedido}) => {
 
                 {/*//////////////// FACTURADO ////////////////*/}
 
-                
-
                 {  (usuario.tipo==='ventas')
                     ?
                     <div className="estado">
-                    {pedido.estado_pedido 
+                    {(pedido.estado_pedido) 
                     ?  
                         (
                             <button
@@ -453,8 +463,8 @@ const Pedido = ({pedido}) => {
                             <button
                                 type="button"
                                 className="completo"
-                                /* onClick={() => cambiarEstadoDespacho(pedido)} */
-                                onClick={handleClickOpen}
+                                onClick={() => cambiarEstadoDespacho(pedido)}
+                                
                             >ENTREGADO</button>
                         )
                     : 
@@ -462,34 +472,135 @@ const Pedido = ({pedido}) => {
                             <button
                                 type="button"
                                 className="incompleto"
-                                /* onClick={() => cambiarEstadoDespacho(pedido)} */
-                                onClick={handleClickOpen}
+                                onClick={() => cambiarEstadoDespacho(pedido)}
+                                
                             >PENDIENTE POR ENTREGA</button>
                         )
                     }
 
                     <Dialog
-                    fullScreen={fullScreen}
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="responsive-dialog-title"
-                >
-                    <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
-                    <DialogContent>
-                    <DialogContentText>
-                        Let Google help apps determine location. This means sending anonymous location data to
-                        Google, even when no apps are running.
-                    </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                    <Button autoFocus onClick={handleClose} color="primary">
-                        Disagree
-                    </Button>
-                    <Button onClick={handleClose} color="primary" autoFocus>
-                        Agree
-                    </Button>
-                    </DialogActions>
-                </Dialog>
+                        fullScreen={fullScreen}
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+
+                        <form
+                            className="formulario-nuevo-pedido"
+                            onSubmit={onSubmitDespacho}
+                            
+                        >
+                        <DialogContent>
+                        <DialogTitle id="responsive-dialog-title">{"Complete los Datos de Entrega"}</DialogTitle>
+                            <DialogContentText>
+                                <div className="">
+                                    <TituloP>Tipo de Entrega:</TituloP>
+                                    <select
+                                        className="form-control"
+                                        name="lugarEntrega"
+                                        value={lugarEntrega}
+                                        onChange={e => guardarLugarEntrega(e.target.value)}
+                                    >
+                                        <option value="">-- Seleccione --</option>
+                                        <option value="Transporte">Transporte</option>
+                                        <option value="Retiro Bascuñan">Bascuñan</option>
+                                        <option value="Retiro Salvador Sanfuentes">Salvador Sanfuentes</option>
+                                        
+                                    </select>
+                                </div>
+                                <div className="mt-2">
+                                <TituloP>Fecha de Entrega:</TituloP>
+                                    <input 
+                                            type="datetime-local"
+                                            className="form-control"
+                                            name="fechaEntrega"
+                                            value={fechaEntrega}
+                                            onChange={e => guardarFechaEntrega(e.target.value)}
+                                        />
+                                </div>
+                                <div className="mt-2">
+                                <TituloP>Cantidad de Bultos:</TituloP>
+                                    <input 
+                                            type="number"
+                                            className="form-control"
+                                            name="cantidadBulto"
+                                            value={cantidadBulto}
+                                            onChange={e => guardarCantidadBulto(e.target.value)}
+                                        />
+                                </div>
+                                <DialogActions>
+                                {
+                                    (lugarEntrega, fechaEntrega, cantidadBulto ) &&
+
+                                    <input 
+                                        type="submit"
+                                        className="btn  btn-block"
+                                        value="Agregar Pedido"
+                                    />
+                                }
+                                    {/* <Button onClick={handleClose} color="primary" autoFocus>
+                                        Agree
+                                    </Button> */}
+                                </DialogActions>
+                                
+                            </DialogContentText>
+                        </DialogContent>
+                        </form>
+                    </Dialog>
+
+                    {/** FORMULARIO PARA SUBIR FACTURA **/}
+
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={openFact}
+                        onClose={handleCloseFact}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+
+                        <form
+                            className="formulario-nuevo-pedido"
+                            onSubmit={onSubmitFactura}
+                            
+                        >
+                        <DialogContent>
+                        <DialogTitle id="responsive-dialog-title">{<TituloP>Subir Factura/Boleta</TituloP>}</DialogTitle>
+                            <div className="m-2">
+                                
+                                <div className="form-group">
+                                    <input 
+                                    type="file" 
+                                    accept=".pdf" 
+                                    className="form-control-file"
+                                    name="docArchivo"
+                                    onChange={leerArchivoFactura}
+                                />
+                                </div>
+                            </div>
+
+                            <DialogActions>
+                            {
+                                (docArchivo) &&
+
+                                <input 
+                                    type="submit"
+                                    className="btn  btn-block"
+                                    value="Guardar Documento"
+                                />
+                            }
+                                {/* <Button onClick={handleClose} color="primary" autoFocus>
+                                    Agree
+                                </Button> */}
+                            </DialogActions>
+                        </DialogContent>
+                        
+                        </form>
+                        <Button className="btn-block" onClick={handleCloseFact} color="primary">
+                            Salir
+                        </Button>
+                    </Dialog>
+
+
+                    {/** ////////////////////////////// **/}
 
                     </div>
                 
@@ -527,16 +638,28 @@ const Pedido = ({pedido}) => {
 
                 }
 
+            {/* <form
+                className="formulario-nuevo-pedido"
+                onSubmit={onSubmitFactura}
+            >
+                <div className="form-group col-md-8 margin_personal">
+                    <label>Archivo:</label>
+                    <input 
+                    type="file" 
+                    accept=".pdf" 
+                    className="form-control"
+                    name="docArchivo"
+                    onChange={leerArchivoFactura}
+                />
+                </div>
+
+                <input 
+                    type="submit"
+                    className="btn  btn-block"
+                    value="Agregar Factura"
+                />
+            </form> */}
             
-
-
-
-
-
-
-
-
-
         </div>
         <FormTarea/>
         </Fragment>

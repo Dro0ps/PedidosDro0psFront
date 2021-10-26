@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, Fragment } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Barra from '../layout/Barra';
 import NuevoPedido from './NuevoPedido';
+import RegistroPedidos from '../tablas/RegistroPedidos';
 import RegistroPedidosUser from '../tablas/RegistroPedidosUser';
 import AuthContext from '../../context/autenticacion/authContext';
 import VistaPedido from './VistaPedido';
+import NuevoPedidoBas from './NuevoPedidoBas';
 
 
 const PedidosUsuario = () => {
@@ -20,7 +22,7 @@ const PedidosUsuario = () => {
      
 
     return ( 
-       <Fragment>
+       <>
            
            <Barra/>
            {/* <Imagen/> */}
@@ -29,12 +31,20 @@ const PedidosUsuario = () => {
            {(usuario.tipo !== ('bodega')) ? 
                <NuevoPedido />
            : null }
+
+
+           {(usuario.tipo === ('bodega')) ? 
+               <NuevoPedidoBas />
+           : null }
            
            <div className="margen-top"><VistaPedido/></div>
            
-           <RegistroPedidosUser/>
+           {(usuario.tipo === ('ventas')) ? 
+             <RegistroPedidosUser/>
+               
+           : <RegistroPedidos/> }
             
-     </Fragment>
+     </>
      );
 }
  

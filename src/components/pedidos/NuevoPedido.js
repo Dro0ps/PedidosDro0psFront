@@ -11,10 +11,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 
 
-
-
-
-
 const TituloP = styled.p`
     font-size: 1.2rem;
 `;
@@ -309,9 +305,7 @@ const NuevoPedido = () => {
             {/* Fin del recuadro */}
         </DialogContent>
         <DialogActions>
-        <Button className="btn-block" onClick={handleClose} color="primary">
-        Salir
-        </Button>
+        <button className="btn btn-block" onClick={handleClose} color="primary">Salir</button>
         
         </DialogActions>
         </Dialog>

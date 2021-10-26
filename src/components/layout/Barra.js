@@ -48,12 +48,9 @@ const Barra = () => {
             `}
         >
 
-    {usuario ? <p className="nombre-usuario" ><spam>{usuario.nombre} </spam></p> : null}
-
+        {usuario ? <p className="nombre-usuario" ><spam>{usuario.nombre} </spam></p> : null}
 
             <Nav>
-
-            
 
                 {/* {usuario.tipo!==('bodega') ? 
                     <Link to={'/pagos'} className=""><a>Registro de Pagos</a></Link>
@@ -62,10 +59,18 @@ const Barra = () => {
                 {/* {usuario.tipo!==('bodega') ? 
                     <Link to={'/edita'} className=""><a>Editar Pedidos</a></Link>
                 : null} */}
-            
-            <a><Link to={'/pedidos/user'} >Tus Pedidos</Link></a>
 
-            <a><Link to={'/pedidos'} >Registro de Pedidos</Link></a>
+               
+
+            { usuario.tipo === 'ventas'
+                ?
+                <div>
+                    <Link to={'/pedidos/user'} >MIS PEDIDOS</Link>
+                    <Link to={'/pedidos'} >PEDIDOS</Link>
+                </div>
+                : 
+                null
+            }
                 
             </Nav>
 
@@ -73,8 +78,6 @@ const Barra = () => {
             className="btn btn-blank cerrar-sesion"
             onClick={() => cerrarSesion() }
         >Cerrar Sesión</button>
-
-            
         </header>
 
 

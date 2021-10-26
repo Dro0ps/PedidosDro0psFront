@@ -130,6 +130,47 @@ const PedidoState = props => {
               });
         }
     }
+    // Agregar nuevo pedido de Bascuñan
+    const agregarPedidoBas = async pedido => {
+
+        try {
+            const resultado = await clienteAxios.post('/api/pedidos/bas', pedido);
+            
+            // Lanzar una alerta
+          if (resultado.status === 200) {
+            Swal.fire("Agregado Correctamente", resultado.data.mensaje, "success");
+          } else {
+            // lanzar alerta
+            Swal.fire({
+              type: "error",
+              title: "Hubo un error",
+              text: "Vuelva a intentarlo",
+            });
+          }
+            // Insertar el pedido en el state
+            dispatch({
+                type: AGREGAR_PEDIDO,
+                payload: resultado.data
+            })
+        } catch (error) {
+            /* const alerta = {
+                msg: 'El numero de pedido ya existe',
+                categoria: 'alerta-error'
+            }
+            
+            dispatch({
+                type: PEDIDO_ERROR,
+                payload: alerta
+            }) */
+
+            // lanzar alerta
+            Swal.fire({
+                type: "error",
+                title: "FAVOR VERIFIQUE",
+                text: "EL NUMERO DE PEDIDO INGRESADO YA EXISTE",
+              });
+        }
+    }
 
     // Valida el formulario por errores
     const mostrarError = () => {
@@ -251,6 +292,7 @@ const PedidoState = props => {
                 obtenerPedidos,
                 obtenerPedidosUsuario,
                 agregarPedido,
+                agregarPedidoBas,
                 mostrarError,
                 pedidoActual,
                 eliminarPedido,

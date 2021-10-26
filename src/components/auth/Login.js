@@ -13,19 +13,29 @@ const Login = (props) => {
     const { alerta, mostrarAlerta } = alertaContext;
 
     const authContext = useContext(AuthContext);
-    const { mensaje, autenticado, iniciarSesion } = authContext;
+    const { mensaje, autenticado, iniciarSesion, usuarioautenticado} = authContext;
 
       // En caso de que el password o usuario no exista
       useEffect(() => {
         if(autenticado) {
-
             props.history.push('/Loading');
 
             setTimeout(() => {
-                props.history.push('/pedidos');
-            }, 3000);
+                console.log(usuarioautenticado)
+                    props.history.push('/pedidos')
 
+                }, 3000);
             
+            /* setTimeout(() => {
+                if(usuario.tipo==="supervisor"){
+                    props.history.push('/pedidos')
+                } else {
+                    props.history.push('/pedidos/user')
+                } */
+ 
+            
+        
+   
         }
 
         if(mensaje) {
@@ -34,18 +44,21 @@ const Login = (props) => {
         // eslint-disable-next-line
     }, [mensaje, autenticado, props.history]);
 
+
+
+
     // State para iniciar sesión
-    const [usuario, guardarUsuario] = useState({
+    const [user, guardarUser] = useState({
         email: '',
         password: ''
     });
 
-    // extraer de usuario
-    const { email, password } = usuario;
+    // extraer de user
+    const { email, password } = user;
 
     const onChange = e => {
-        guardarUsuario({
-            ...usuario,
+        guardarUser({
+            ...user,
             [e.target.name] : e.target.value
         })
     }

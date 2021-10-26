@@ -75,11 +75,9 @@ const Pedido = ({pedido}) => {
      
 
      const agregarFormFactura = async e => {
-
          const formData = new FormData();
 
          formData.append("doc_archivo", docArchivo)
-
 
          try {
              const respuesta = await clienteAxios.put(`/api/pedidos/up/${pedido._id}`, formData, {
@@ -98,7 +96,6 @@ const Pedido = ({pedido}) => {
          } catch (error) {
              console.log(error);
          }
-
      }
 
    // Coloca EL ARCHIVO en el state
@@ -154,8 +151,32 @@ const Pedido = ({pedido}) => {
           })
 
           if (text) {
-            pedido.num_documento = text;
-            handleClickOpenFactura();
+            if(usuario.tipo==="bodega") {
+
+                try {
+                    pedido.num_documento = text;
+                    pedido.estado_pedido = true;
+                    actualizarPedido(pedido);
+                    Swal.fire({
+                        type: "error",
+                        title: "Factura Confirmada",
+                        text: `Registrada con el Numero: ${pedido.num_documento}`,
+                      });
+                } catch (error) {
+                    console.log(error)
+                    Swal.fire({
+                        type: "error",
+                        title: "Hubo un error",
+                        text: "Vuelva a intentarlo",
+                      });
+                }
+
+                
+            } else {
+                pedido.num_documento = text;
+                handleClickOpenFactura();
+            }
+            
           } 
 
           
@@ -287,12 +308,6 @@ const Pedido = ({pedido}) => {
         
     }
 
-
-
-
-
-
-
     return (  
         <Fragment>
         <div className="row">
@@ -306,7 +321,7 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">{pedido.tipo_documento}:</span><span>{pedido.num_documento}</span></div>
                 {
                     (pedido.estado_pedido) && 
-                    <div><a href={pedido.doc_archivo} ><button type="button" className="btn btn-link">Descargar {pedido.tipo_documento}</button></a></div>
+                    <div> {usuario.tipo!=="bodega" && <a href={pedido.doc_archivo} ><button type="button" className="btn btn-link">Descargar {pedido.tipo_documento}</button></a>}</div>
                 }
                 
                 
@@ -319,7 +334,7 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">Entregado Por:</span><span>{pedido.lugar_entrega}</span></div>
                 <div className="disflex"><span className="t4">Fecha de Entrega:</span><span>{moment(pedido.fecha_entrega).format('MMMM Do YYYY, h:mm:ss a')}</span></div>
                 <div className="disflex"><span className="t4">Bultos:</span><span>{pedido.bultos}</span></div>
-                <div><a href={pedido.archivo} ><button type="button" className="btn btn-link">Descargar Pedido</button></a></div>
+                <div>{usuario.tipo!=="bodega" && <a href={pedido.archivo} ><button type="button" className="btn btn-link">Descargar Pedido</button></a>}</div>
                 
                 
  
@@ -329,7 +344,7 @@ const Pedido = ({pedido}) => {
 
 
         <div className=" row pad-up ">
-        <div className="col-md-4">
+            <div className="col-md-4">
                 <div className="disflex"><span className="t4 ">Confirmación de Pago:</span>
 
                 {/*//////////////// CONFIRMACIÓN ////////////////*/}
@@ -382,10 +397,7 @@ const Pedido = ({pedido}) => {
 
 
                 }
-                    
-                   
-                
-                
+
                 </div>
             </div>
 
@@ -395,10 +407,6 @@ const Pedido = ({pedido}) => {
 
                 {/*//////////////// FACTURADO ////////////////*/}
 
-                
-
-                {  (usuario.tipo==='ventas')
-                    ?
                     <div className="estado">
                     {(pedido.estado_pedido) 
                     ?  
@@ -420,34 +428,6 @@ const Pedido = ({pedido}) => {
                         )
                     }
                     </div>
-
-                    :
-
-
-                    <div className="estado">
-                    {pedido.estado_pedido 
-                    ?  
-                        (
-                            <button
-                                type="button"
-                                className="completo"
-                                /* onClick={() => cambiarEstado(pedido)} */
-                            >FACTURADO</button>
-                        )
-                    : 
-                        (
-                            <button
-                                type="button"
-                                className="incompleto"
-                                /* onClick={() => cambiarEstado(pedido)} */
-                            >SIN FACTURAR</button>
-                        )
-                    }
-                    </div>
-
-
-
-                }
                 
                 </div>
             </div>
@@ -456,11 +436,7 @@ const Pedido = ({pedido}) => {
                 {/* //////////////////// CAMBIAR ESTADO DESPACHO ////////////////// */}
 
                 {/*/////// MATERIAL UI //////*/}
-
-                {  (usuario.tipo === 'ventas')
-
-                 ?
-
+              
             <div className="col-md-4">
                 <div className="disflex"><span className="t4">Entrega del Pedido:</span>
                     
@@ -561,7 +537,7 @@ const Pedido = ({pedido}) => {
                     <Dialog
                         fullScreen={fullScreen}
                         open={openFact}
-                        onClose={handleCloseFact}
+                        /* onClose={handleCloseFact} */
                         aria-labelledby="responsive-dialog-title"
                     >
 
@@ -571,30 +547,41 @@ const Pedido = ({pedido}) => {
                             
                         >
                         <DialogContent>
-                        <DialogTitle id="responsive-dialog-title">{<TituloP>Subir Factura/Boleta</TituloP>}</DialogTitle>
-                            <div className="m-2">
-                                
-                                <div className="form-group">
-                                    <input 
-                                    type="file" 
-                                    accept=".pdf" 
-                                    className="form-control-file"
-                                    name="docArchivo"
-                                    onChange={leerArchivoFactura}
-                                />
+
+                            {(usuario.tipo!=="bodega") &&
+
+                            <div>
+                                <DialogTitle id="responsive-dialog-title">{<TituloP>Subir Factura/Boleta</TituloP>}</DialogTitle>
+                                <div className="m-2">
+                                    
+                                    <div className="form-group">
+                                        <input 
+                                        type="file" 
+                                        accept=".pdf" 
+                                        className="form-control-file"
+                                        name="docArchivo"
+                                        onChange={leerArchivoFactura}
+                                    />
+                                    </div>
                                 </div>
+
                             </div>
+                                
+                            
+                            }
+                        
 
                             <DialogActions>
                             {
-                                (docArchivo) &&
-
+                                (docArchivo) 
+                                &&
                                 <input 
                                     type="submit"
                                     className="btn  btn-block"
                                     value="Guardar Documento"
                                 />
                             }
+
                                 {/* <Button onClick={handleClose} color="primary" autoFocus>
                                     Agree
                                 </Button> */}
@@ -615,37 +602,7 @@ const Pedido = ({pedido}) => {
                 </div>
             </div>
 
-            :
-
-            <div className="col-md-3">
-            <div className="disflex"><span className="t4">Entrega del Pedido:</span>
-                
-                <div className="estado">
-                {pedido.estado_despacho 
-                ?  
-                    (
-                        <button
-                            type="button"
-                            className="completo"
-                            /* onClick={() => cambiarEstadoDespacho(pedido)} */
-                        >ENTREGADO</button>
-                    )
-                : 
-                    (
-                        <button
-                            type="button"
-                            className="incompleto"
-                            /* onClick={() => cambiarEstadoDespacho(pedido)} */
-                        >PENDIENTE POR ENTREGA</button>
-                    )
-                }
-                </div>
             
-            </div>
-            </div>
-
-                }
-
             {/* <form
                 className="formulario-nuevo-pedido"
                 onSubmit={onSubmitFactura}
