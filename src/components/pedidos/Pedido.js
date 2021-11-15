@@ -151,7 +151,7 @@ const Pedido = ({pedido}) => {
           })
 
           if (text) {
-            if(usuario.tipo==="bodega") {
+            if(usuario.tipo==="NINGUNA") {
 
                 try {
                     pedido.num_documento = text;
@@ -321,7 +321,7 @@ const Pedido = ({pedido}) => {
                 <div className="disflex"><span className="t4">{pedido.tipo_documento}:</span><span>{pedido.num_documento}</span></div>
                 {
                     (pedido.estado_pedido) && 
-                    <div> {usuario.tipo!=="bodega" && <a href={pedido.doc_archivo} ><button type="button" className="btn btn-link">Descargar {pedido.tipo_documento}</button></a>}</div>
+                    <div> {usuario.tipo!=="NINGUNA" && <a href={pedido.doc_archivo} ><button type="button" className="btn btn-link">Descargar {pedido.tipo_documento}</button></a>}</div>
                 }
                 
                 
@@ -548,7 +548,7 @@ const Pedido = ({pedido}) => {
                         >
                         <DialogContent>
 
-                            {(usuario.tipo!=="bodega") &&
+                            {(usuario.tipo!=="NINGUNA") &&
 
                             <div>
                                 <DialogTitle id="responsive-dialog-title">{<TituloP>Subir Factura/Boleta</TituloP>}</DialogTitle>
