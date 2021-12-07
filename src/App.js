@@ -9,13 +9,13 @@ import PedidosUsuario from './components/pedidos/PedidosUsuario';
 
 import PedidoState from './context/pedidos/pedidoState';
 import TareaState from './context/tareas/tareaState';
-import NotaState from './context/notas/notaState';
+import RevisionState from './context/revisiones/revisionState';
 import AlertaState from './context/alertas/alertaState';
 import AuthState from './context/autenticacion/authState';
 import tokenAuth from './config/token';
 import RutaPrivada from './components/rutas/RutaPrivada';
 import RegistroPedidos from './components/tablas/RegistroPedidos';
-import Notas from './components/notas/Notas';
+import Revisiones from './components/revisiones/Revisiones';
 
 
 
@@ -30,7 +30,7 @@ function App() {
   return (
     <PedidoState>
       <TareaState>
-        <NotaState>
+        <RevisionState>
             <AlertaState>
               <AuthState>
                 <Router>
@@ -42,12 +42,12 @@ function App() {
                         <RutaPrivada exact path="/pedidos/user" component={PedidosUsuario} />
                         <RutaPrivada exact path="/registros" component={RegistroPedidos} />
                         <RutaPrivada exact path="/edita-dro0ps" component={EditarPedido} />
-                        <RutaPrivada exact path="/notas" component={Notas} />
+                        <RutaPrivada exact path="/revisiones" component={Revisiones} />
                     </Switch>
                 </Router>
               </AuthState>
             </AlertaState>
-        </NotaState>
+        </RevisionState>
       </TareaState>
     </PedidoState>
   );

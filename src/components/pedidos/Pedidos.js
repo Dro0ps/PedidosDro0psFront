@@ -39,9 +39,11 @@ const Pedidos = () => {
            <div className="margen-top"><VistaPedido/></div>
            
            {(usuario.tipo === ('bodega')) ? 
-             <RegistroPedidosUser/>
+
+           <div className="container-fluid"><RegistroPedidosUser /></div>
+             
                
-           : <RegistroPedidos/> }
+           : <div className="container-fluid"><RegistroPedidos className="container"/></div> }
             
      </>
      );

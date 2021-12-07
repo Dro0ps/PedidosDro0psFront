@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import Barra from '../layout/Barra';
-import NuevaNota from './NuevaNota';
+import NuevaRevision from './NuevaRevision';
 import AuthContext from '../../context/autenticacion/authContext';
-import TablaNotas from './TablaNotas';
+import TablaRevisiones from './TablaRevisiones';
 
 
 
-const Notas = () => {
+const Revisiones = () => {
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext);
@@ -21,12 +21,15 @@ const Notas = () => {
 
     <Fragment>
         <Barra/>
-        <NuevaNota/>
-        <TablaNotas/>
+        <NuevaRevision/>
+        <div className="container w-75 p-3 ">
+            <TablaRevisiones />
+        </div>
+        
     </Fragment>
     
     
     );
 }
  
-export default Notas;
+export default Revisiones;

@@ -1,30 +1,31 @@
 import React, { useContext, Fragment, useEffect, Component } from "react";
-import notaContext from "../../context/notas/notaContext";
+import revisionContext from "../../context/revisiones/revisionContext";
 import AlertaContext from "../../context/alertas/alertaContext";
 import DataTable from "react-data-table-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import VistaNota from "./VistaNota";
+import VistaRevision from "./VistaRevision";
 
-const TablaNotas = () => {
-  // Extraer notas del state inicial
-  const NotasContext = useContext(notaContext);
-  const { notas, obtenerNotas, notaActual } = NotasContext;
+
+const TablaRevisiones = () => {
+  // Extraer revisiones del state inicial
+  const RevisionesContext = useContext(revisionContext);
+  const { revisiones, obtenerRevisiones, revisionActual } = RevisionesContext;
 
   const alertaContext = useContext(AlertaContext);
   const { alerta } = alertaContext;
 
   const seleccionarNota = (id) => {
-    notaActual(id);
+    revisionActual(id);
   };
 
   useEffect(() => {
-    obtenerNotas();
+    obtenerRevisiones();
     // eslint-disable-next-line
   }, []);
 
-  // revisar si notas tiene contenido
-  if (notas.length === 0) return <h1>No hay notas Registrados</h1>;
+  // revisar si revisiones tiene contenido
+  if (revisiones.length === 0) return <h1>No hay revisiones Registrados</h1>;
 
   const columnas = [
     {
@@ -35,19 +36,19 @@ const TablaNotas = () => {
     },
 
     {
-      name: "#Nota",
-      selector: "num_notaCredito",
+      name: "#Documento",
+      selector: "doc_revisado",
       sortable: true,
       grow: 1,
-      /** Boton para llamar el Nota **/
+      /** Boton para llamar la Revision **/
       cell: (row) => (
         <button
           className="btn btn-blank"
           raised
           primary
-          onClick={() => seleccionarNota(row._id)}
+          onClick={() => seleccionarNota(row.doc_revisado)}
         >
-          {row.num_notaCredito}
+          {row.doc_revisado}
         </button>
       ),
       ignoreRowClick: true,
@@ -56,36 +57,32 @@ const TablaNotas = () => {
     },
 
     {
-      name: "Cliente",
-      selector: "rut_clienteNotaCredito",
+      name: "Fecha de Revisión",
+      selector: "fecha_revisado",
       sortable: true,
       grow: 2,
     },
     {
-      name: "Monto",
-      selector: "monto_notaCredito",
+      name: "Revisado Por:",
+      selector: "revisado_por",
       sortable: true,
     },
-    {
-      name: "Fecha de NC",
-      selector: "fecha_notaCredito",
-      sortable: true,
-    },
+    
     {
       name: 'Estado',
-      selector: 'estado_notaCredito',
-      cell: row => <div className="estado">{row.estado_notaCredito 
+      selector: 'revisado',
+      cell: row => <div className="estado">{row.revisado 
           ?  
               (
                   <button
                   className="completo"
-                  >PENDIENTE</button>
+                  >Revisado</button>
               )
           : 
               (
                   <button 
                   className=""
-                  >COBRADA</button>
+                  >Pendiente</button>
               )
           }
       
@@ -108,7 +105,7 @@ const TablaNotas = () => {
     //Buscador
     state = {
       busqueda: "",
-      notas: [],
+      revisiones: [],
     };
 
     onChange = async (e) => {
@@ -118,10 +115,15 @@ const TablaNotas = () => {
     };
 
     filtrarElementos = () => {
-      var search = notas.filter((item) => {
+      var search = revisiones.filter((item) => {
         if (
-          item.num_notaCredito.toLowerCase().includes(this.state.busqueda) ||
-          item.rut_clienteNotaCredito
+          item.doc_revisado.toLowerCase().includes(this.state.busqueda) ||
+          item.fecha_revisado
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .includes(this.state.busqueda) ||
+          item.revisado_por
             .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
@@ -131,17 +133,17 @@ const TablaNotas = () => {
           return item;
         }
       });
-      this.setState({ notas: search });
+      this.setState({ revisiones: search });
     };
 
     componentDidMount() {
-      this.setState({ notas: notas });
+      this.setState({ revisiones: revisiones });
     }
 
     render() {
       return (
         <Fragment>
-          <VistaNota />
+          <VistaRevision />
 
           {/* Campo BUSCADOR */}
           <div className="barraBusqueda">
@@ -164,9 +166,9 @@ const TablaNotas = () => {
           <div className="table-responsive">
             <DataTable
               columns={columnas}
-              /* data={notas} */
-              data={this.state.notas}
-              title="Listado de Pagos"
+              /* data={revisiones} */
+              data={this.state.revisiones}
+              title="Pedidos Revisados"
               pagination
               paginationComponentOptions={pagOpciones}
               fixedHeader
@@ -192,4 +194,4 @@ const TablaNotas = () => {
   );
 };
 
-export default TablaNotas;
+export default TablaRevisiones;
