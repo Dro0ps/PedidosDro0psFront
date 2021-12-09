@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileInvoice, faTruck, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 
 import styled from '@emotion/styled';
+import Boton from '../ui/Boton';
 
 
 
@@ -81,7 +82,7 @@ const RegistroPedidos  = () => {
             sortable: false,
             /** Boton para llamar el Pedido **/
             cell: row => <button
-            className='btn btn-blank'
+            className='btn'
             raised primary onClick={() => seleccionarPedido(row._id)}>
             {row.num_pedido}
             </button>,
