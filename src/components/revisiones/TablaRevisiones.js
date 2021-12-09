@@ -15,7 +15,7 @@ const TablaRevisiones = () => {
   const alertaContext = useContext(AlertaContext);
   const { alerta } = alertaContext;
 
-  const seleccionarNota = (id) => {
+  const seleccionarRevision = (id) => {
     revisionActual(id);
   };
 
@@ -46,7 +46,7 @@ const TablaRevisiones = () => {
           className="btn btn-blank"
           raised
           primary
-          onClick={() => seleccionarNota(row.doc_revisado)}
+          onClick={() => seleccionarRevision(row._id)}
         >
           {row.doc_revisado}
         </button>
@@ -66,6 +66,7 @@ const TablaRevisiones = () => {
       name: "Revisado Por:",
       selector: "revisado_por",
       sortable: true,
+      grow: 2,
     },
     
     {
@@ -88,7 +89,7 @@ const TablaRevisiones = () => {
       
       </div>,
       sortable: true,
-      grow: 1
+      grow: 0
       
   }
     

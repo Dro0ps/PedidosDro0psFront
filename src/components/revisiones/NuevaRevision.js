@@ -1,11 +1,15 @@
 import React, {useState, useContext} from 'react';
 import revisionContext from '../../context/revisiones/revisionContext';
 import styled from '@emotion/styled';
+import moment from 'moment';
+
+
 
 
 // UI personalizado
 import { Formulario } from '../ui/Formulario';
 import Boton from '../ui/Boton';
+
 
 // Material UI
 
@@ -48,21 +52,34 @@ const NuevaRevision = () => {
         revisado: false,
         fecha_revisado: '',
         revisado_por: '',
+        fecha_verificado: '',
+        comentarios: [{
+          body: '',
+          date: ''
+        }]
     });
 
     // Extraer datos del revision
     const {
       doc_revisado,
       fecha_revisado,
-      revisado_por
+      revisado_por,
+      fecha_verificado,
+      comentarios
       
         } = revision;
+
+      
+      
+
+        
 
       // Lee los contenidos del input
       const onChangeRevision = e => {
         guardarRevision({
             ...revision,
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value,
+            fecha_revisado: `${moment().format('L')}, ${moment().format('LTS')}`
         })
     }
 
@@ -75,17 +92,22 @@ const NuevaRevision = () => {
             mostrarError();
             return;
         }
-        console.log(revision);
+        
+        
 
-          // agregar al state
-          registrarRevision(revision)
+        // agregar al state
+        registrarRevision(revision)
 
-          // Reiniciar el form
-          guardarRevision({
-            doc_revisado: '',
-            fecha_revisado: '',
-            revisado_por: '',
-          })
+        // Reiniciar el form
+        guardarRevision({
+          doc_revisado: '',
+          revisado_por: '',
+          fecha_verificado: '',
+          comentarios: [{
+            body: '',
+            date: ''
+          }]
+        })
 
           handleClose();
 
@@ -110,29 +132,27 @@ const NuevaRevision = () => {
             />
           </div>
 
-          <div className="form-group col-md-auto margin_personal">
-            <TituloP>Fecha:</TituloP>
-            <input 
-                type="date"
-                className="form-control"
-                name="fecha_revisado"
-                value={fecha_revisado}
-                onChange={onChangeRevision}
-            />
-          </div>
 
           <div className="form-group col-md-auto margin_personal">
             <TituloP>Quien Revisa:</TituloP>
-            <input 
-                type="text"
+            <select
                 className="form-control"
-                placeholder="Encargado de Revisar"
                 name="revisado_por"
                 value={revisado_por}
                 onChange={onChangeRevision}
-            />
+            >
+                <option value="">-- Seleccione --</option>
+                <option value="Mauricio Bravo">Mauricio Bravo</option>
+                <option value="Manuel">Manuel</option>
+                <option value="Enrique">Enrique</option>
+                <option value="Dilia">Dilia</option>
+                
+            </select>
           </div>
 
+          
+          
+          
           <input 
                     type="submit"
                     className="btn  btn-block"

@@ -21,6 +21,8 @@ const VistaPedido = () => {
     // Array destructuring para extraer el pedido actual
     const [pedidoActual] = pedido;
 
+    console.log(pedido);
+
     /* // Elimina un pedido
     const onClickEliminar = () => {
         eliminarPedido(pedidoActual._id)
