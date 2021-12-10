@@ -40,10 +40,10 @@ const Pedidos = () => {
            
            {(usuario.tipo === ('bodega')) ? 
 
-           <div className="container-fluid"><RegistroPedidosUser /></div>
+            <div className="container"><RegistroPedidosUser/></div>
              
                
-           : <div className="container-fluid"><RegistroPedidos className="container"/></div> }
+           : <div className="container"><RegistroPedidos/></div> }
             
      </>
      );

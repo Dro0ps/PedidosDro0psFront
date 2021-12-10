@@ -96,7 +96,7 @@ const RegistroPedidos  = () => {
             name: <Encabezado>Nombre del Cliente</Encabezado>,
             selector: 'nombre_cliente',
             sortable: false,
-            grow: 0.5
+            grow: 0.4
             
         },
         {
@@ -111,12 +111,12 @@ const RegistroPedidos  = () => {
             sortable: true,
             grow: 0
         }, */
-        {
+        /* {
             name: <Encabezado>Banco</Encabezado>,
             selector: 'banco',
             sortable: false,
             grow: 0
-        },
+        }, */
         {
             name: <Encabezado>Fecha Deposito</Encabezado>,
             selector: 'fecha_deposito',
@@ -134,7 +134,7 @@ const RegistroPedidos  = () => {
             name: <Encabezado>N° Identificador</Encabezado>,
             selector: 'num_transaccion',
             sortable: false,
-            grow: 0
+            grow: 0.2
             
         },
         /* {
@@ -154,7 +154,7 @@ const RegistroPedidos  = () => {
             name: <Encabezado>Fact/Boleta:</Encabezado>,
             selector: 'num_documento',
             sortable: false,
-            grow: 0
+            grow: 0.2
         },
         /* 
         {
@@ -336,6 +336,7 @@ const RegistroPedidos  = () => {
                             fixedHeader
                             fixedHeaderScrollHeight="1000px"
                             noDataComponent={<p>No se encontro ningún elemento</p>}
+                            
                         />
                    
                 </Fragment>
