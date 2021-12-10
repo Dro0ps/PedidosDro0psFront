@@ -134,15 +134,15 @@ const RegistroPedidos  = () => {
             name: <Encabezado>N° Identificador</Encabezado>,
             selector: 'num_transaccion',
             sortable: false,
-            grow: 0.3
+            grow: 0
             
         },
-        {
+        /* {
             name: <Encabezado>Fecha Confirmado</Encabezado>,
             selector: 'fecha_confirmacion',
             sortable: false,
             grow: 0.2
-        },
+        }, */
         {
             name: <Encabezado>Creador por:</Encabezado>,
             selector: 'creador.nombre',
