@@ -150,12 +150,13 @@ const RegistroPedidos  = () => {
             grow: 0.1
         },
         
-        /* {
-            name: 'N° Documento',
+        {
+            name: <Encabezado>Fact/Boleta:</Encabezado>,
             selector: 'num_documento',
             sortable: false,
             grow: 0
         },
+        /* 
         {
             name: 'Fecha de Entrega',
             selector: 'fecha_entrega',
