@@ -274,13 +274,14 @@ const RegistroPedidos  = () => {
         filtrarElementos=()=>{
             var search=pedidos.filter(item=>{
                 if(
-                item.num_pedido.toLowerCase().includes(this.state.busqueda) ||
+                item.num_pedido.includes(this.state.busqueda) ||
                 item.nombre_cliente.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").includes(this.state.busqueda) ||
                 item.monto_pedido.toLowerCase().includes(this.state.busqueda) ||
                 item.banco.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_deposito.toLowerCase().includes(this.state.busqueda) ||
                 item.creador.nombre.toLowerCase().includes(this.state.busqueda) ||
-                item.num_transaccion.toLowerCase().includes(this.state.busqueda) 
+                item.num_transaccion.toLowerCase().includes(this.state.busqueda) ||
+                item.num_documento.includes(this.state.busqueda) 
                 /* item.num_documento.toLowerCase().includes(this.state.busqueda) ||
                 item.fecha_entrega.toLowerCase().includes(this.state.busqueda) ||
                 item.lugar_entrega.toLowerCase().includes(this.state.busqueda) */
