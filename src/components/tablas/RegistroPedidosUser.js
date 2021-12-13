@@ -56,7 +56,7 @@ const RegistroPedidosUser  = () => {
      if(pedidos.length === 0 ) return (
      
         <div><h1>Cargando listado de Pedidos...</h1><div class="d-flex justify-content-center">
-        <div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>
+        <div class="spinner-border" role="status"><span class="sr-only"></span></div></div></div>
  
  ) 
 
