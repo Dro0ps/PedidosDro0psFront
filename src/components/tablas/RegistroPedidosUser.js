@@ -68,6 +68,7 @@ const columnas = [
         selector: '_id',
         sortable: false,
         omit: true,
+        
     },
     {
         name: 'Creado',
@@ -88,21 +89,24 @@ const columnas = [
         ignoreRowClick: true,
         allowOverflow: true,
         button: true,
-        grow: 0
+        grow: 1,
+        wrap: true
 
     },
     {
         name: <Encabezado>Nombre del Cliente</Encabezado>,
         selector: 'nombre_cliente',
         sortable: false,
-        grow: 0.5
+        grow: 1,
+        wrap: true
         
     },
     {
         name: <Encabezado>Monto$</Encabezado>,
         selector: 'monto_pedido',
         sortable: false,
-        grow: 0
+        grow: 1,
+        wrap: true
     },
     /* {
         name: 'Medio de Pago',
@@ -114,13 +118,15 @@ const columnas = [
         name: <Encabezado>Banco</Encabezado>,
         selector: 'banco',
         sortable: false,
-        grow: 0
+        grow: 1,
+        wrap: true
     },
     {
         name: <Encabezado>Fecha Deposito</Encabezado>,
         selector: 'fecha_deposito',
         sortable: false,
-        grow: 0
+        grow: 1,
+        wrap: true
     },
     
     /* {
@@ -133,14 +139,16 @@ const columnas = [
         name: <Encabezado>N° Identificador</Encabezado>,
         selector: 'num_transaccion',
         sortable: false,
-        grow: 0.3
+        grow: 1,
+        wrap: true
         
     },
     {
         name: <Encabezado>Fecha Confirmado</Encabezado>,
         selector: 'fecha_confirmacion',
         sortable: false,
-        grow: 0.2
+        grow: 1,
+        wrap: true
     },
     /* {
         name: <Encabezado>Creador por:</Encabezado>,
@@ -188,7 +196,8 @@ const columnas = [
         
         </div>,
         sortable: true,
-        grow: 0
+        grow: 0,
+        wrap: true
         
         
     },
@@ -213,7 +222,8 @@ const columnas = [
         
         </div>,
         sortable: true,
-        grow: 0
+        grow: 0,
+        wrap: true
         
         
     },
@@ -240,9 +250,8 @@ const columnas = [
         }
         </div>,
         sortable: true,
-        grow: 0
-    
-        
+        grow: 0,
+        wrap: true
     },
    
 ];

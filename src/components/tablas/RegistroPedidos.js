@@ -69,12 +69,14 @@ const RegistroPedidos  = () => {
             selector: '_id',
             sortable: false,
             omit: true,
+            wrap: true
         },
         {
             name: 'Creado',
             selector: 'creado',
             sortable: true,
             omit: true,
+            wrap: true
         },
         {
             name: <Encabezado>#Pedido</Encabezado>,
@@ -89,21 +91,24 @@ const RegistroPedidos  = () => {
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
-            grow: 0
+            grow: 1,
+            wrap: true
 
         },
         {
             name: <Encabezado>Nombre del Cliente</Encabezado>,
             selector: 'nombre_cliente',
             sortable: false,
-            grow: 0.4
+            grow: 1,
+            wrap: true
             
         },
         {
             name: <Encabezado>Monto$</Encabezado>,
             selector: 'monto_pedido',
             sortable: false,
-            grow: 0
+            grow: 1,
+            wrap: true
         },
         /* {
             name: 'Medio de Pago',
@@ -121,7 +126,8 @@ const RegistroPedidos  = () => {
             name: <Encabezado>Fecha Deposito</Encabezado>,
             selector: 'fecha_deposito',
             sortable: false,
-            grow: 0
+            grow: 1,
+            wrap: true
         },
         
         /* {
@@ -134,7 +140,8 @@ const RegistroPedidos  = () => {
             name: <Encabezado>N° Identificador</Encabezado>,
             selector: 'num_transaccion',
             sortable: false,
-            grow: 0.2
+            grow: 1,
+            wrap: true
             
         },
         /* {
@@ -147,14 +154,17 @@ const RegistroPedidos  = () => {
             name: <Encabezado>Creador por:</Encabezado>,
             selector: 'creador.nombre',
             sortable: false,
-            grow: 0.1
+            grow: 0,
+            wrap: true
         },
         
         {
             name: <Encabezado>Fact/Boleta:</Encabezado>,
             selector: 'num_documento',
             sortable: false,
-            grow: 0.2
+            grow: 0,
+            center: true,
+            wrap: true
         },
         /* 
         {
@@ -190,7 +200,8 @@ const RegistroPedidos  = () => {
             
             </div>,
             sortable: true,
-            grow: 0
+            grow: 0,
+            wrap: true
             
             
         },
@@ -215,7 +226,8 @@ const RegistroPedidos  = () => {
             
             </div>,
             sortable: true,
-            grow: 0
+            grow: 0,
+            wrap: true
             
             
         },
@@ -242,7 +254,8 @@ const RegistroPedidos  = () => {
             }
             </div>,
             sortable: true,
-            grow: 0
+            grow: 0,
+            wrap: true
         
             
         },
