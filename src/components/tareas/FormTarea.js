@@ -147,15 +147,15 @@ const FormTarea = () => {
         <DialogTitle>
           
         </DialogTitle>
-        <DialogContent>
+        <DialogContent ajuste-UI>
           {/* Inicio del recuadro */}
 
           <div className="">
             <form onSubmit={onSubmit}>
               {/**TERCERA**/}
 
-              <div className="form-row">
-              <div className="form-group col-md-auto margin_personal">
+              <div className="form-row row">
+              <div className="form-group col-md-15 margin_personal">
                   <p>Titulo del Anexo:</p>
                 <select
                     className="form-control"
@@ -176,7 +176,7 @@ const FormTarea = () => {
                 </div>
 
 
-                <div className="form-group col-md-11 margin_personal">
+                <div className="form-group col-md-15 margin_personal">
                   <p>Comentarios:</p>
                   <textarea
                     rows="6"

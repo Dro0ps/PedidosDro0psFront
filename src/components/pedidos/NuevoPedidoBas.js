@@ -126,7 +126,7 @@ const onSubmitPedido = async e => {
 
         <Button variant="contained" onClick={handleClickOpen}>Registrar Pedido Bascuñan</Button>
         <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-            <DialogContent>
+            <DialogContent className="ajuste-UI">
                         {/* Inicio del recuadro */}
             
         

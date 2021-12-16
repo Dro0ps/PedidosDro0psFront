@@ -54,7 +54,7 @@ a {
 
 /** Margenes **/
 .margin_personal {
-  margin: 10px;
+  margin: 0px 0px 10px;
 }
 
 /** BOTONES **/
@@ -124,6 +124,7 @@ aside  {
 
 .formulario-nuevo-pedido {
   margin-top: 0.5rem;
+  
 }
 .formulario-nuevo-pedido .input-text {
   border-bottom: 1px solid var(--gris2);
@@ -456,4 +457,11 @@ aside  {
   
   margin-top: 100px;
 }
+
+.ajuste-UI {
+  
+  width: 600px !important;
+  
+}
+
 

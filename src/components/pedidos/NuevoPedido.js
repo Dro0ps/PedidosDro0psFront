@@ -12,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 
 const TituloP = styled.p`
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 `;
 
 const NuevoPedido = () => {
@@ -155,20 +155,20 @@ const NuevoPedido = () => {
         <Fragment>
             <Button variant="contained" onClick={handleClickOpen}>Registrar Nuevo Pedido</Button>
             <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-            <DialogContent>
+            <DialogContent className="ajuste-UI">
         {/* Inicio del recuadro */}
             
         
         <form
-            className="formulario-nuevo-pedido"
+            className="formulario-nuevo-pedido "
             onSubmit={onSubmitPedido}
         >
             
             {/**PRIMERA**/}
-            <div className="form-row"> 
+            <div className="form-row row"> 
 
 
-            <div className="form-group col-md-auto margin_personal">
+            <div className="form-group col-md-4 margin_personal">
             <TituloP>Pedido:</TituloP>
             <input 
                     type="number"
@@ -180,7 +180,7 @@ const NuevoPedido = () => {
                 />
             </div>
 
-            <div className="form-group col-md-6 margin_personal">
+            <div className="form-group col-md-8 margin_personal">
             <TituloP>Cliente:</TituloP>
             <input 
                     type="text"
@@ -194,25 +194,30 @@ const NuevoPedido = () => {
 
             
             
+
+            
+            
             </div>
 
             {/**SEGUNDA**/}
-            <div className="form-row"> 
+            <div className="form-row row"> 
 
 
-            <div className="form-group col-md-auto margin_personal">
-                <TituloP>Monto:</TituloP>
-                <input 
-                        type="number"
-                        className="form-control"
-                        placeholder="Monto $"
-                        name="monto_pedido"
-                        value={monto_pedido}
-                        onChange={onChangePedido}
-                    />
+                <div className="form-group col-md-4 margin_personal">
+                    <TituloP>Monto:</TituloP>
+                    <input 
+                            type="text"
+                            className="form-control"
+                            placeholder="Monto $"
+                            name="monto_pedido"
+                            value={monto_pedido}
+                            onChange={onChangePedido}
+                        />
                 </div>
 
-                <div className="form-group col-md-auto margin_personal">
+
+
+                <div className="form-group col-md-4 margin_personal">
                     <TituloP>Medio de Pago:</TituloP>
                     <select
                         className="form-control"
@@ -229,7 +234,7 @@ const NuevoPedido = () => {
                     </select>
                 </div>
 
-                <div className="form-group col-md-auto margin_personal">
+                <div className="form-group col-md-4 margin_personal">
                     <TituloP>Banco:</TituloP>
                     <select
                         className="form-control"
@@ -244,13 +249,13 @@ const NuevoPedido = () => {
                     </select>
                 </div>
 
-                </div>
+            </div>
 
 
                 {/**TERCERA**/}
-                <div className="form-row">
+                <div className="form-row row">
 
-                <div className="form-group col-md-auto margin_personal">
+                <div className="form-group col-md-4 margin_personal">
                 <TituloP>Fecha del Deposito:</TituloP>
                 <input 
                         type="date"
@@ -260,28 +265,31 @@ const NuevoPedido = () => {
                         onChange={onChangePedido}
                     />
                 </div>
-                <div className="form-group col-md-auto margin_personal">
-                    <TituloP>Tipo de documento:</TituloP>
-                    <select
-                        className="form-control"
-                        name="tipo_documento"
-                        value={tipo_documento}
-                        onChange={onChangePedido}
-                    >
-                        <option value="">-- Seleccione --</option>
-                        <option value="Boleta">Boleta</option>
-                        <option value="Factura">Factura</option>
-                        
-                    </select>
+                <div className="form-group col-md-4 margin_personal">
+                    <div>
+                        <TituloP>Tipo de documento:</TituloP>
+                        <select
+                            className="form-control"
+                            name="tipo_documento"
+                            value={tipo_documento}
+                            onChange={onChangePedido}
+                        >
+                            <option value="">-- Seleccione --</option>
+                            <option value="Boleta">Boleta</option>
+                            <option value="Factura">Factura</option>
+                            
+                        </select>
+
+
+                    </div>
+                    
                 </div>
 
-                </div>
-
-                <div className="input-group ">
+                <div className="input-group col-md-4">
                     <input 
                     type="file" 
                     accept=".pdf" 
-                    className="form-control margin_personal"
+                    className="form-control col-md-4 margin_personal"
                     id="inputGroupFile04"
                     aria-describedby="inputGroupFileAddon04"
                     aria-label="Upload"
@@ -290,6 +298,10 @@ const NuevoPedido = () => {
                 />
                 
                 </div>
+
+                </div>
+
+                
                 <input 
                     type="submit"
                     className="btn  btn-block"
